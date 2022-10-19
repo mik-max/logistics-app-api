@@ -1,0 +1,35 @@
+{
+  "name": "logistics-app",
+  "version": "1.0.0",
+  "description": "Logistics application",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js",
+    "start:dev": "nodemon server.js"
+  },
+  "keywords": [
+    "Mssql",
+    "NodeJs",
+    "Nodemon"
+  ],
+  "author": "Michael Chinye",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.1",
+    "fs-extra": "^10.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "mssql": "^9.0.1",
+    "node-fetch": "^3.2.10",
+    "node-schedule": "^2.1.0",
+    "nodemon": "^2.0.20",
+    "otp-generator": "^4.0.0",
+    "paystack-node": "^0.3.0",
+    "sib-api-v3-sdk": "^8.4.2",
+    "swagger-ui-express": "^4.5.0"
+  }
+}

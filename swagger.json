@@ -1,0 +1,124 @@
+{
+     "openapi": "3.0.0",
+     "info": {
+         "title": "birthday reminder ",
+         "description": "Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.",
+         "version": "0.1.9"
+     },
+     "servers": [
+         
+         {
+             "url": " https://9d3c-105-112-183-160.eu.ngrok.io",
+             "description": "Live Demo server"
+         },
+         {
+               "url": "http://localhost:8005",
+               "description": "Internal staging server for testing"
+          }
+     ],
+     
+    "paths":{
+     "/api/v1/otps/create": {
+          "post": {
+              "summary": "Creates a four(4) digit OTP",
+              "tags": [
+                 "otps"
+              ],
+              "description":"Generates a random four(4) digit Otp used to verify users email on signup",
+              "requestBody": {
+               "required": true,
+               "content": {
+                   "application/json": {
+                       "schema": {
+                           "type": "object",
+                           "properties": {
+                               "email": {
+                                   "type": "string"
+                               }
+                           },
+                           "required": [
+                               "email"
+                           ]
+                       }
+                   }
+               }
+           },
+              "responses": {
+                  "201": {
+                      "description": "An object containing status data and message",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "type": "object",
+                                  "properties": {
+                                   "status": {
+                                        "type": "string"
+                                   },
+                                   "data":{
+                                        "type": "string",
+                                        "example": null
+                                   },
+                                   "mesage": {
+                                        "type":"string"
+                                   }
+                                  }
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/api/v1/otps/verify": {
+          "post": {
+              "summary": "Verifies an OTP",
+              "tags": [
+                 "otps"
+              ],
+              "description":"Checks if OTP is still active and verifies it",
+              "requestBody": {
+               "required": true,
+               "content": {
+                   "application/json": {
+                       "schema": {
+                           "type": "object",
+                           "properties": {
+                               "otp": {
+                                   "type": "string"
+                               }
+                           },
+                           "required": [
+                               "otp"
+                           ]
+                       }
+                   }
+               }
+           },
+              "responses": {
+                  "201": {
+                      "description": "An object containing status data and message",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "type": "object",
+                                  "properties": {
+                                   "status": {
+                                        "type": "string"
+                                   },
+                                   "data":{
+                                        "type": "string",
+                                        "example": null
+                                   },
+                                   "mesage": {
+                                        "type":"string"
+                                   }
+                                  }
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      }
+    }
+ }
