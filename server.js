@@ -7,9 +7,12 @@ import configData from './config.js';
 import PayStack from 'paystack-node';
 
 
+
 // Routes
 import emailRouter from './src/routes/emailRoutes.js';
-
+import driverRouter from "./src/routes/driversRouters.js";
+import userRouter from "./src/routes/usersRouters.js";
+import vehicleRouter from "./src/routes/vehiclesRouters.js";
 
 let APIKEY = configData.paystackApiKey
 let environment = configData.nodeEnv
@@ -54,6 +57,9 @@ app.post('/charge/card', async (req, res) => {
     
 })
 app.use('/api/v1', emailRouter)
+app.use('/api/v1', driverRouter);
+app.use("/api/v1", userRouter);
+app.use("/api/v1", vehicleRouter);
 
 // Swagger Documentation 
 var options = {
