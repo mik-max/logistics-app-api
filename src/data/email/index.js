@@ -7,7 +7,7 @@ let sqlQueries = await loadSqlQueries('data/email');
 const createNewOtpData = async (otp, emailAddress) => {
      let date = new Date(); 
      let isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
-     let expiryDate = new Date((date.getTime() - (date.getTimezoneOffset() * 60000)) + 2700000 )
+     let expiryDate = new Date((date.getTime() - (date.getTimezoneOffset() * 60000)) + 2700000 ).toISOString()
      try {
           let pool = await sql.connect(configData.sql);
           const insertOtp = await pool.request()

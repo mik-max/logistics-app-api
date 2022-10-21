@@ -13,10 +13,10 @@ import emailRouter from './src/routes/emailRoutes.js';
 
 let APIKEY = configData.paystackApiKey
 let environment = configData.nodeEnv
-console.log(APIKEY)
 
 const paystack = new PayStack(APIKEY, environment)
 const feesCalculator = new PayStack.Fees();
+
 
 const app = express()
 const port = process.env.PORT || 8005
@@ -28,20 +28,26 @@ app.use(Cors());
 app.get('/', (req, res) => res.status(200).send('Hello CleverProgrammers!!!!!. CELZ4 API!!!🔥🔥'))
 app.post('/charge/card', async (req, res) => {
      try {
-          const {body} = paystack.chargeCard({
+          const body = await paystack.chargeCard({
                card:{
-                    number: '5399837841116788', // mastercard
                     cvv: '324',
+                    number: '5399837841116788', 
                     expiry_year: '2024',
                     expiry_month: '08'
                },
+               metadata:{ 
+               },
+               reference:"xuooyjtjwvxcbfi",
+               pin: "0000",
+               authorization_code:"AUTH_pg8d9e879p",
+               device_id: '6782877y2',
                email: 'me.biodunch@xyz.ng',
-               amount: "15600000" // 156,000 Naira in kobo
+               amount: "15600000" ,
           })
+          console.log(body)
           
-         let data = await initializePayment(req.body);
-         console.log(data)
-         res.status(200).send(data)
+     //     let data = await initializePayment(req.body);
+         res.status(200).send({data: "completed"})
      } catch (error) {
         res.status(500).send({data: null, status: 500, message:error.message})  
      }

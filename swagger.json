@@ -18,9 +18,9 @@
      ],
      
     "paths":{
-     "/api/v1/otps/create": {
+     "/api/v1/otps/resend": {
           "post": {
-              "summary": "Creates a four(4) digit OTP",
+              "summary": "Sends a four(4) digit OTP",
               "tags": [
                  "otps"
               ],

@@ -1,10 +1,18 @@
 import Sib from 'sib-api-v3-sdk/src/index.js'
 import configData from '../../config.js'
 import { generateOtp } from './OtpGenerator.js'
+import { createNewOtpData } from '../data/email/index.js'
+import { encrypt } from '../utilities/hashing.js'
+import { validateEmail } from '../utilities/emailValidation.js'
 
-
-export const sendOtp = (email) => {
+export const sendOtp = async (email) => {
+     let validatedEmail = validateEmail(email)
+     if(!validatedEmail){
+          return false
+     }
      let otp = generateOtp();
+     let hashedOtp = encrypt(otp)
+     await createNewOtpData(hashedOtp, email)
      const client = Sib.ApiClient.instance
      const apiKey = client.authentications['api-key']
      apiKey.apiKey = configData.sendInBlueApiKey
