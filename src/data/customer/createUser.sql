@@ -1,32 +1,32 @@
 BEGIN
+DECLARE @userId INT
 
-INSERT INTO [dbo].[UserAccounts]
-           ([UserId]
-           ,[Email]
-           ,[Password]
-           ,[PhoneNumber]
-           ,[IsEmailConfirmed]
-           ,[IsPhoneNumberConfirmed]
-           ,[IsLockedOut]
-           ,[LockedOutCount]
-           ,[LockedOutDate]
-           ,[DateCreated]
-           ,[DateModified]
-           ,[IsDeleted]
-           ,[DateDeleted])
+INSERT INTO [dbo].[Users]
+           ([FirstName]
+          ,[LastName]
+          ,[RoleId]
+          ,[Email]
+          ,[DateCreated])
 
      VALUES(
-            @userId,
+            @firstName,
+           @lastName,
+           @roleId,
            @email,
-           @password,
-           @isEmailConfirmed,
-           @isPhoneNumberConfirmed,
-           @isLockedOut,
-           @lockedOutCount,
-           @lockedOutDate,
-           @dateCreated,
-           @dateModified,
-           @isDeleted,
-           @dateDeleted
-        )
+           @dateCreated
+)
+SET @userId = @@IDENTITY
+INSERT INTO [dbo].[UserAccounts](
+     [UserId]
+      ,[Email]
+      ,[Password]
+      ,[DateCreated]
+)
+VALUES(
+      @userId,
+      @email,
+      @password,
+      @dateCreated
+)
+
 END

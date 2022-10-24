@@ -41,7 +41,6 @@ export const verifyOtps = async (req, res, next) => {
 export const expireOtps = async (req, res, next) => {
      try {
           let data = await getAllOtpData();
-          console.log(data)
           if (data != []){
                data.map(async(otp) => {
                     let result = checkExpiryDate(otp.ExpiresAt);

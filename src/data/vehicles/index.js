@@ -3,7 +3,7 @@ import loadSqlQueries from "../../../utils.js";
 import sql from 'mssql'
 
 
-let pool = await sql.connect(configData);
+let pool = await sql.connect(configData.sql);
 let sqlQueries = await loadSqlQueries('data/vehicles'); 
 
 const createVehicleData = async (vehicleData) => {
