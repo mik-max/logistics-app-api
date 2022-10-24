@@ -19,7 +19,7 @@ const createUserData = async (userData) => {
            .input("Email", sql.VarChar(50), userData.email)
            .input("Password", sql.VarChar(150), hashedPassword)
            .input("DateCreated", sql.DateTime2, isoDateTime)
-           .query(sqlQueries.createUser);
+           .query(sqlQueries.createCustomer);
            await pool.close() // closed database conection
            return insertUser.recordset;
      } catch (error) {
