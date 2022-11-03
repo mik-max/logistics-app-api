@@ -1,8 +1,9 @@
-import { createUser } from "../controllers/userController.js";
+import { createCustomer, loginCustomer} from "../controllers/userController.js";
 import { Router } from "express";
 
 let userRouter = Router();
-userRouter.post('/user', createUser);
+userRouter.post('/customer', createCustomer);
+userRouter.post('/customer/login', loginCustomer);
 
 
 export default userRouter;

@@ -7,8 +7,8 @@ export const reSendOtps = async (req, res, next) => {
      try {
           let validatedEmail = validateEmail(req.body.email)
           if(validatedEmail){
-               await sendOtp(req.body.email);
-               res.status(200).send({status: "Ok", data: null, message: `OTP has been successfully sent to ${req.body.email}` })
+               let otpResponse = await sendOtp(req.body.email);
+               res.status(200).send({status: "Ok", data: {reference: otpResponse}, message: `OTP has been successfully sent to ${req.body.email}` })
           }else{
                res.status(400).send({status: "Failed", data: null, message: `${req.body.email} is an invalid email ooooo abeg` })
           }

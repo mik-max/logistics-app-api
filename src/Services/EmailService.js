@@ -4,7 +4,7 @@ import { generateOtp } from './OtpGenerator.js'
 import { createNewOtpData } from '../data/email/index.js'
 import { encrypt } from '../utilities/hashing.js'
 import { validateEmail } from '../utilities/emailValidation.js'
-
+import { makeReference } from '../utilities/generateReference.js'
 export const sendOtp = async (email) => {
      let validatedEmail = validateEmail(email)
      if(!validatedEmail){
@@ -12,7 +12,8 @@ export const sendOtp = async (email) => {
      }
      let otp = generateOtp();
      let hashedOtp = encrypt(otp)
-     await createNewOtpData(hashedOtp, email)
+     let reference = makeReference(10)
+     await createNewOtpData(hashedOtp, email, reference)
      const client = Sib.ApiClient.instance
      const apiKey = client.authentications['api-key']
      apiKey.apiKey = configData.sendInBlueApiKey
@@ -42,6 +43,6 @@ export const sendOtp = async (email) => {
                               </body>
                          </html>`
      }).then( response => { console.log(response)})
-     return otp;
+     return reference;
 }
 

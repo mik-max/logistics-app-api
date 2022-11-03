@@ -14,11 +14,6 @@ import driverRouter from "./src/routes/driversRouters.js";
 import userRouter from "./src/routes/usersRouters.js";
 import vehicleRouter from "./src/routes/vehiclesRouters.js";
 
-let APIKEY = configData.paystackApiKey
-let environment = configData.nodeEnv
-
-const paystack = new PayStack(APIKEY, environment)
-const feesCalculator = new PayStack.Fees();
 
 
 const app = express()
@@ -29,33 +24,7 @@ app.use(Cors());
 
 //Endpoints
 app.get('/', (req, res) => res.status(200).send('Hello CleverProgrammers!!!!!. CELZ4 API!!!🔥🔥'))
-app.post('/charge/card', async (req, res) => {
-     try {
-          const body = await paystack.chargeCard({
-               card:{
-                    cvv: '324',
-                    number: '5399837841116788', 
-                    expiry_year: '2024',
-                    expiry_month: '08'
-               },
-               metadata:{ 
-               },
-               reference:"xuooyjtjwvxcbfi",
-               pin: "0000",
-               authorization_code:"AUTH_pg8d9e879p",
-               device_id: '6782877y2',
-               email: 'me.biodunch@xyz.ng',
-               amount: "15600000" ,
-          })
-          console.log(body)
-          
-     //     let data = await initializePayment(req.body);
-         res.status(200).send({data: "completed"})
-     } catch (error) {
-        res.status(500).send({data: null, status: 500, message:error.message})  
-     }
-    
-})
+
 app.use('/api/v1', emailRouter)
 app.use('/api/v1', driverRouter);
 app.use("/api/v1", userRouter);

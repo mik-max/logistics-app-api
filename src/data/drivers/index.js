@@ -30,6 +30,31 @@ const createDriverData = async (driverData) => {
     }
 
 }
+const loginDriverData = async (email, password) => {
+    let date = new Date();
+    let isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
+//     const hashedPassword = encrypt(driverData.password);
+    try {
+          let pool = await sql.connect(configData.sql);
+          // const roleId = await pool.request().input('Name', sql.VarChar(20), driverData.role).query(generalSqlQueries.getRoleId)
+          const loginTheDriver = await pool.request()
+          .input("Email", sql.VarChar(50), email)
+          .input("Password", sql.VarChar(150), password)
+          .input('LoginDate', sql.DateTime2, isoDateTime)
+           .input("DateModified", sql.DateTime2, isoDateTime)
+          .query(sqlQueries.loginDriver);
+
+          const updateLogin = await pool.request().input("IsLoggedinBefore", sql.Bit, 0)
+          .query(generalSqlQueries.updataLoginStatus);
+          await pool.close() // closed database conection
+          const loginRecordset = loginTheDriver.recordset;
+          const updateLoginRecordset = updateLogin.recordset;
+          return loginTheDriver.recordset;
+    } catch (error) {
+        return error.message
+    }
+
+}
 
 
 const updateDriverData = async(Id, driverData) => {
@@ -79,4 +104,4 @@ const updateDriverData = async(Id, driverData) => {
 
 
 
-export { createDriverData, updateDriverData };
+export { createDriverData,loginDriverData, updateDriverData };

@@ -4,7 +4,7 @@ import sql from 'mssql';
 let sqlQueries = await loadSqlQueries('data/email');
 
 
-const createNewOtpData = async (otp, emailAddress) => {
+const createNewOtpData = async (otp, emailAddress, reference) => {
      let date = new Date(); 
      let isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
      let expiryDate = new Date((date.getTime() - (date.getTimezoneOffset() * 60000)) + 2700000 ).toISOString()
@@ -15,6 +15,7 @@ const createNewOtpData = async (otp, emailAddress) => {
           .input('EmailAddress', sql.VarChar(50), emailAddress)
           .input('DateCreated', sql.DateTime2, isoDateTime)
           .input('ExpiresAt', sql.DateTime2, expiryDate)
+          .input('Reference', sql.VarChar(10), reference)
           .query(sqlQueries.createOtp)
           await pool.close() // closed database conection
           return insertOtp.recordset;
