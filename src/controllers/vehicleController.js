@@ -1,4 +1,6 @@
 import { createVehicleData, updateVehicleData,approveVehicleData, rejectVehicleData } from "../data/vehicles/index.js";
+import {sendApproval} from './emailController.js'
+
 
 const createVehicle = async (req, res) => {
     try {
@@ -29,6 +31,9 @@ const approveVehicle = async (req, res, next) => {
         const approve = await approveVehicleData(id);
         
         res.status(201).send(approve);
+        if (res.status(201)) {
+          sendApproval()
+        }
 
     } catch (error) {
          res.status(400).send(error.message);

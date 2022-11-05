@@ -54,7 +54,6 @@ const approveVehicleData = async (Id) => {
     try {
         const list = await pool.request()
           .input("Id", sql.Int, Id)
-         
           .input("DateModified", sql.DateTime2, isoDateTime)
           .query(sqlQueries.approveVehicle);
         return list.recordset;

@@ -11,7 +11,7 @@ import PayStack from 'paystack-node';
 // Routes
 import emailRouter from './src/routes/emailRoutes.js';
 import driverRouter from "./src/routes/driversRouters.js";
-import userRouter from "./src/routes/usersRouters.js";
+import userRouter from "./src/routes/customerRouters.js";
 import vehicleRouter from "./src/routes/vehiclesRouters.js";
 
 

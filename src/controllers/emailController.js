@@ -1,8 +1,9 @@
-import { sendOtp } from "../Services/EmailService.js";
+import { sendOtp, sendVehicleApproved } from "../Services/EmailService.js";
 import { createNewOtpData, getOtpData, verifyOtpData, expireOtpData, getAllOtpData  } from "../data/email/index.js";
 import { encrypt } from "../utilities/hashing.js";
 import { checkExpiryDate } from "../utilities/checkExpirydate.js";
 import { validateEmail } from "../utilities/emailValidation.js";
+
 export const reSendOtps = async (req, res, next) => {
      try {
           let validatedEmail = validateEmail(req.body.email)
@@ -53,6 +54,21 @@ export const expireOtps = async (req, res, next) => {
                res.send({status: "Completed", data: null, message: "Check completed"});
           }else{
                res.send({status: "Empty", data: null, message: "No record found"})
+          }
+          
+     } catch (error) {
+          res.status(500).send({status: "Failed", data: null, message: error.message})
+     }
+}
+
+export const sendApproval = async (req, res, next) => {
+     try {
+          let validatedEmail = validateEmail(req.body.email)
+          if(validatedEmail){
+               await sendVehicleApproved('emekachinye09@gmail.com')
+               res.status(200).send({status: "Ok", data: null, message: `vehicle approval email successfully sent to ${req.body.email}` })
+          }else{
+               res.status(400).send({status: "Failed", data: null, message: `${req.body.email} is an invalid email` })
           }
           
      } catch (error) {
