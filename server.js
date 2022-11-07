@@ -11,7 +11,7 @@ import PayStack from 'paystack-node';
 // Routes
 import emailRouter from './src/routes/emailRoutes.js';
 import driverRouter from "./src/routes/driversRouters.js";
-import userRouter from "./src/routes/customerRouters.js";
+import customerRouter from "./src/routes/customerRouters.js";
 import vehicleRouter from "./src/routes/vehiclesRouters.js";
 
 
@@ -20,14 +20,14 @@ const app = express()
 const port = process.env.PORT || 8005
 //middlewares
 app.use(express.json());
-app.use(Cors());
+app.use(Cors( ));
 
 //Endpoints
 app.get('/', (req, res) => res.status(200).send('Hello CleverProgrammers!!!!!. CELZ4 API!!!🔥🔥'))
 
 app.use('/api/v1', emailRouter)
 app.use('/api/v1', driverRouter);
-app.use("/api/v1", userRouter);
+app.use("/api/v1", customerRouter);
 app.use("/api/v1", vehicleRouter);
 
 // Swagger Documentation 

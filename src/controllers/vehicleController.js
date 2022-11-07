@@ -1,5 +1,5 @@
 import { createVehicleData, updateVehicleData,approveVehicleData, rejectVehicleData } from "../data/vehicles/index.js";
-import {sendApproval} from './emailController.js'
+import { sendVehicleApproved, sendVehicleRejected } from "../Services/EmailService.js";
 
 
 const createVehicle = async (req, res) => {
@@ -29,11 +29,8 @@ const approveVehicle = async (req, res, next) => {
     try {
         const id = req.params.id
         const approve = await approveVehicleData(id);
-        
+        await sendVehicleApproved('michaelchinye2018@gmail.com')
         res.status(201).send(approve);
-        if (res.status(201)) {
-          sendApproval()
-        }
 
     } catch (error) {
          res.status(400).send(error.message);
@@ -43,7 +40,7 @@ const rejectVehicle = async (req, res, next) => {
     try {
         const id = req.params.id
         const reject = await rejectVehicleData(id);
-        
+        await sendVehicleRejected('emekachinye09@gmail.com')
         res.status(201).send(reject);
 
     } catch (error) {

@@ -47,6 +47,48 @@ export const sendOtp = async (email) => {
      return reference;
 }
 
+export const sendVehicleRejected = async (email) => {
+     let validatedEmail = validateEmail(email)
+     if(!validatedEmail){
+          return false
+     }
+     // let otp = generateOtp();
+     // let hashedOtp = encrypt(otp)
+     // let reference = makeReference(10)
+     // await createNewOtpData(hashedOtp, email, reference)
+     const client = Sib.ApiClient.instance
+     const apiKey = client.authentications['api-key']
+     apiKey.apiKey = configData.sendInBlueApiKey
+     const transactionalEmailApi  = new Sib.TransactionalEmailsApi()
+
+     const sender = {
+          name: 'Logistics App',
+          email: 'michaelchinye2018@gmail.com'
+     }
+
+     const receivers = [
+          {email: `${email}`}
+     ]
+
+     transactionalEmailApi.sendTransacEmail({
+          sender,
+          to:receivers,
+          subject: 'Custom email',
+          htmlContent: `<!DOCTYPE html>
+                         <html>
+                              <head></head>
+                              <body>
+                                   <h1>Your Vehicle Status</h1>
+                                   <p>Dear Driver</p>
+                                   <p>This is to inform you that the details of the vehicle uploded to the platform has been checked by the system Admin and Your vehicle has been <b>Rejected.</b> due to inappropriate vehicle document</p>
+                                   <p>Kindly Reupload your vehicle document.</p>
+                                   <br>
+                                   <p>Regards,</p>
+                                   <p>LA Team.</p>
+                              </body>
+                         </html>`
+     }).then( response => { console.log(response)})
+}
 export const sendVehicleApproved = async (email) => {
      let validatedEmail = validateEmail(email)
      if(!validatedEmail){
@@ -88,5 +130,4 @@ export const sendVehicleApproved = async (email) => {
                               </body>
                          </html>`
      }).then( response => { console.log(response)})
-     return reference;
 }

@@ -61,17 +61,3 @@ export const expireOtps = async (req, res, next) => {
      }
 }
 
-export const sendApproval = async (req, res, next) => {
-     try {
-          let validatedEmail = validateEmail(req.body.email)
-          if(validatedEmail){
-               await sendVehicleApproved('emekachinye09@gmail.com')
-               res.status(200).send({status: "Ok", data: null, message: `vehicle approval email successfully sent to ${req.body.email}` })
-          }else{
-               res.status(400).send({status: "Failed", data: null, message: `${req.body.email} is an invalid email` })
-          }
-          
-     } catch (error) {
-          res.status(500).send({status: "Failed", data: null, message: error.message})
-     }
-}
