@@ -29,7 +29,7 @@ const approveVehicle = async (req, res, next) => {
     try {
         const id = req.params.id
         const approve = await approveVehicleData(id);
-        await sendVehicleApproved('michaelchinye2018@gmail.com')
+        await sendVehicleApproved(req.body.email)
         res.status(201).send(approve);
 
     } catch (error) {
@@ -40,7 +40,7 @@ const rejectVehicle = async (req, res, next) => {
     try {
         const id = req.params.id
         const reject = await rejectVehicleData(id);
-        await sendVehicleRejected('emekachinye09@gmail.com')
+        await sendVehicleRejected(req.body.email)
         res.status(201).send(reject);
 
     } catch (error) {

@@ -13,6 +13,7 @@ import emailRouter from './src/routes/emailRoutes.js';
 import driverRouter from "./src/routes/driversRouters.js";
 import customerRouter from "./src/routes/customerRouters.js";
 import vehicleRouter from "./src/routes/vehiclesRouters.js";
+import packageRouter from './src/routes/packageRouters.js';
 
 
 
@@ -29,6 +30,7 @@ app.use('/api/v1', emailRouter)
 app.use('/api/v1', driverRouter);
 app.use("/api/v1", customerRouter);
 app.use("/api/v1", vehicleRouter);
+app.use("/api/v1", packageRouter);
 
 // Swagger Documentation 
 var options = {

@@ -1,4 +1,4 @@
-import { createCustomerData, loginCustomerData } from "../data/customer/index.js";
+import { createCustomerData, loginCustomerData, getDriverData} from "../data/customer/index.js";
 import { validateEmail } from "../utilities/emailValidation.js";
 import { encrypt } from "../utilities/hashing.js";
 import  Jwt  from "jsonwebtoken";
@@ -15,7 +15,6 @@ const createCustomer =  async (req, res) => {
      }  
     } catch (error) {
         res.status(400).send(error.message)
-        console.log(error.message)
     }
 }
 
@@ -44,5 +43,14 @@ const loginCustomer = async (req, res) => {
           console.log(error.message);
      }
 };
+const getDriver = async (req, res) => {
+     try {
+          const data = await getDriverData(req.body.state)
+          res.status(201).send({status:'Ok', data: data, message: "Successfull"})
+     } catch (error) {
+          res.status(400).send(error.message)
+          console.log(error.message)
+     }
+}
 
-export {createCustomer, loginCustomer}
+export {createCustomer, loginCustomer, getDriver}

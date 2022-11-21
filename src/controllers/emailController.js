@@ -1,4 +1,4 @@
-import { sendOtp, sendVehicleApproved } from "../Services/EmailService.js";
+import { sendOtp, sendDriverPairing, sendRepuestProcessing, sendRepuestProcessed } from "../Services/EmailService.js";
 import { createNewOtpData, getOtpData, verifyOtpData, expireOtpData, getAllOtpData  } from "../data/email/index.js";
 import { encrypt } from "../utilities/hashing.js";
 import { checkExpiryDate } from "../utilities/checkExpirydate.js";
@@ -60,4 +60,49 @@ export const expireOtps = async (req, res, next) => {
           res.status(500).send({status: "Failed", data: null, message: error.message})
      }
 }
+
+export const mailDriver = async (req, res, next) => {
+     try {
+          let validatedEmail = validateEmail(req.body.email)
+          if(validatedEmail){
+                await sendDriverPairing(req.body.email, req.body.name);
+               res.status(200).send({status: "Ok", data: null, message: `Mail successfully sent to ${req.body.email}` })
+          }else{
+               res.status(400).send({status: "Failed", data: null, message: `${req.body.email} is an invalid email` })
+          }
+          
+     } catch (error) {
+          res.status(500).send({status: "Failed", data: null, message: error.message})
+     }
+}
+export const repuestProcessing = async (req, res, next) => {
+     try {
+          let validatedEmail = validateEmail(req.body.email)
+          if(validatedEmail){
+                await sendRepuestProcessing(req.body.email);
+               res.status(200).send({status: "Ok", data: null, message: `Mail successfully sent to ${req.body.email}` })
+          }else{
+               res.status(400).send({status: "Failed", data: null, message: `${req.body.email} is an invalid email` })
+          }
+          
+     } catch (error) {
+          res.status(500).send({status: "Failed", data: null, message: error.message})
+     }
+}
+export const repuestProcessed = async (req, res, next) => {
+     try {
+          let validatedEmail = validateEmail(req.body.email)
+          if(validatedEmail){
+                await sendRepuestProcessed(req.body.email);
+               res.status(200).send({status: "Ok", data: null, message: `Mail successfully sent to ${req.body.email}` })
+          }else{
+               res.status(400).send({status: "Failed", data: null, message: `${req.body.email} is an invalid email` })
+          }
+          
+     } catch (error) {
+          res.status(500).send({status: "Failed", data: null, message: error.message})
+     }
+}
+
+
 
