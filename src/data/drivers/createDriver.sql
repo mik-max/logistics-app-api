@@ -10,7 +10,7 @@ INSERT INTO [dbo].[Users]
           ,[DateCreated])
 
      VALUES(
-            @firstName,
+            @firstName, 
            @lastName,
            @roleId,
            @email,
@@ -20,9 +20,9 @@ INSERT INTO [dbo].[Users]
 SET @userId = @@IDENTITY
 INSERT INTO [dbo].[UserAccounts](
      [UserId]
-      ,[Email]
-      ,[Password]
-      ,[DateCreated]
+     ,[Email]
+     ,[Password]
+     ,[DateCreated]
 )
 VALUES(
       @userId,
@@ -30,5 +30,9 @@ VALUES(
       @password,
       @dateCreated
 )
+INSERT INTO [dbo].[DriverAccounts]
+           ([UserId])
+     VALUES
+           (@userId)
 
 END

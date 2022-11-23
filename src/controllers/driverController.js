@@ -1,4 +1,5 @@
 import { createDriverData, loginDriverData, updateDriverData } from "../data/drivers/index.js";
+import { createVehicleData } from "../data/vehicles/index.js";
 import { validateEmail } from "../utilities/emailValidation.js";
 import { encrypt } from "../utilities/hashing.js";
 import Jwt from "jsonwebtoken";
@@ -8,8 +9,7 @@ const createDriver = async (req, res) => {
      try {
           let validatedEmail = validateEmail(req.body.email)
           if(validatedEmail){
-               const data = req.body;
-               await createDriverData(data);
+               await createDriverData(req.body);
              res.status(200).send({status:'Ok', data:null, message: "User has been successfully created"});
           }else{
                res.status(400).send({status:'Failed', data:null, message: "Email is invalid"});
@@ -47,15 +47,38 @@ const loginDriver = async (req, res) => {
 
 const updateDriver = async (req, res) => {
     try {
-        const data = req.body;
-        const id = req.params.id
-        const update = await updateDriverData(id, data);
-        res.status(200).send(update);
+     
+        const vehicleData = req.body.vehicleData
+       
+        if (req.body.states) {
+          const data = req.body;
+          const id = req.params.id
+
+        const updateState =  req.body.states.forEach(async state => {
+               const update = await updateDriverData(id, state, data);
+               return update
+          });
+   
+          res.status(200).send(updateState);
+        }else{
+          const data = req.body;
+          const id = req.params.id
+
+          const update = await updateDriverData(id, data);
+          res.status(200).send(update);
+        }
+  
+       if (vehicleData) {
+          await createVehicleData(req.params.id, vehicleData)
+       }
     } catch (error) {
         res.status(400).send(error.message)
         console.log(error.message)
     }
 }
+
+
+
 
 
 export {updateDriver, loginDriver, createDriver}

@@ -56,4 +56,17 @@ const createCustomerData = async (userData) => {
  
  }
 
-export { createCustomerData, loginCustomerData };
+ const getDriverData = async (state) => {
+     try {
+          let pool = await sql.connect(configData.sql);
+          const StateId = await pool.request().input("Name", sql.VarChar(20), state).query(generalSqlQueries.getStateId)
+          const getDriver = await pool.request()
+          .input("StateId", sql.Int, StateId.recordset[0].Id).query(sqlQueries.selectDriver)
+          await pool.close() // closed database conection
+          return getDriver.recordset
+     } catch (error) {
+          return error.message
+     }
+}
+
+export { createCustomerData, loginCustomerData, getDriverData };
