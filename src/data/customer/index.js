@@ -7,11 +7,12 @@ let generalSqlQueries = await loadSqlQueries('data/general')
 
 const createCustomerData = async (userData) => {
      let date = new Date();
+     
      let isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
      const hashedPassword = encrypt(userData.password);
      try {
            let pool = await sql.connect(configData.sql);
-           const roleId = await pool.request().input('Name', sql.VarChar(20), userData.role).query(generalSqlQueries.getRoleId)
+           const roleId = await pool.request().input('Name', sql.VarChar(20), userData.role).query(generalSqlQueries.getRoleId);
            const insertUser = await pool.request()
            .input("FirstName", sql.VarChar(30), userData.firstName)
            .input("LastName", sql.VarChar(30), userData.lastName)
@@ -21,6 +22,7 @@ const createCustomerData = async (userData) => {
            .input("DateCreated", sql.DateTime2, isoDateTime)
            .query(sqlQueries.createCustomer);
            await pool.close() // closed database conection
+           console.log(roleId)
            return insertUser.recordset;
      } catch (error) {
          return error.message

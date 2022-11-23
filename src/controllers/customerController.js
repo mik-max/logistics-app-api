@@ -7,9 +7,10 @@ const createCustomer =  async (req, res) => {
     try {
      let validatedEmail = validateEmail(req.body.email)
      if(validatedEmail){
-          const data = req.body;
-          await createCustomerData(data);
-        res.status(200).send({status:'Ok', data:null, message: "successfully logged in"});
+
+          let data = await createCustomerData(req.body);
+          console.log(data)
+        res.status(200).send({status:'Ok', data:null, message: "successfully Created"});
      }else{
           res.status(400).send({status:'Failed', data:null, message: "Email is invalid"});
      }  

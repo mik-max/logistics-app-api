@@ -1,20 +1,21 @@
 BEGIN
 DECLARE @userId INT
 
-INSERT INTO [dbo].[Users]
-           ([FirstName]
-          ,[LastName]
-          ,[RoleId]
-          ,[Email]
-          ,[DateCreated])
-
-     VALUES(
-            @firstName,
-           @lastName,
-           @roleId,
-           @email,
-           @dateCreated
+INSERT INTO [dbo].[Users](
+     [FirstName]
+     ,[LastName]
+     ,[RoleId]
+     ,[Email]
+     ,[DateCreated]
 )
+
+VALUES(
+     @firstName,
+     @lastName,
+     @roleId,
+     @email,
+     @dateCreated
+);
 SET @userId = @@IDENTITY
 INSERT INTO [dbo].[UserAccounts](
      [UserId]

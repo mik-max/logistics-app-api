@@ -12,6 +12,7 @@ const createDriverData = async (driverData) => {
     let isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
     const hashedPassword = encrypt(driverData.password);
     try {
+          console.log(driverData)
           let pool = await sql.connect(configData.sql);
           const roleId = await pool.request().input('Name', sql.VarChar(20), driverData.role).query(generalSqlQueries.getRoleId)
           const insertUser = await pool.request()
