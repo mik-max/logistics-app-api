@@ -10,6 +10,7 @@ let generalSqlQueries = await loadSqlQueries('data/general')
 const createDriverData = async (driverData) => {
     let date = new Date();
     let isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
+    console.log(isoDateTime)
     const hashedPassword = encrypt(driverData.password);
     try {
           console.log(driverData)
@@ -67,7 +68,7 @@ const updateDriverData = async(Id,state, driverData) => {
        let pool = await sql.connect(configData.sql);
      
         const updateUser = await pool.request()
-          .input("Id", sql.Int, Id)
+          .input("UserId", sql.Int, Id)
           .input("DateOfBirth", sql.VarChar(20), driverData.dateOfBirth)
           .input("PhoneNumber", sql.VarChar(20), driverData.phoneNumber)
           .input("Address", sql.VarChar(50), driverData.address)
@@ -89,7 +90,7 @@ const updateDriverData = async(Id,state, driverData) => {
 
       
         const updateTheDriver = await pool.request()
-          .input("Id", sql.Int, DriverAccountId.recordset[0].Id)
+          .input("UserId", sql.Int, DriverAccountId.recordset[0].Id)
           .input("DriverLisence", sql.VarChar(250), driverData.driverLisence)
           .input("VehicleId", sql.Int, driverData.vehicleId)
           .input("IsPlyingInterState", sql.Bit, isPlyingInterState)

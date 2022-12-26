@@ -40,5 +40,16 @@ const createPackageData = async (packageData) => {
      }
  
  }
-
- export {createPackageData}
+const getPaymentMethod = async () => {
+     let date = new Date();
+     let isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
+     try {
+          let pool = await sql.connect(configData.sql)
+          const paymentMethod  = await pool.request()
+          .query(sqlQueries.getPaymentMethods)
+          return paymentMethod.recordset
+     } catch (error) {
+          return error.message
+     }
+}
+ export {createPackageData, getPaymentMethod}

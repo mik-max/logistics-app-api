@@ -1,6 +1,7 @@
 BEGIN
 UPDATE [dbo].[DriverAccounts]
-   SET [DriverLisence] = @driverLisence
+   SET [userId] = @id
+     ,[DriverLisence] = @driverLisence
      ,[VehicleId] = @vehicleId
      ,[IsPlyingInterState] = @isPlyingInterState
      ,[Rating] = @rating

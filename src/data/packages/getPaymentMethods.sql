@@ -1,0 +1,5 @@
+SELECT  [Id]
+      ,[Name]
+      ,[Description]
+      ,[ImageUrl]
+  FROM [LogisticsApp].[dbo].[PaymentMethods]

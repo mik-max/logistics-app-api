@@ -1,4 +1,4 @@
-import {createPackageData} from '../data/packages/index.js'
+import {createPackageData, getPaymentMethod} from '../data/packages/index.js'
 
 const sendPackage = async (req, res) => {
      try {
@@ -11,4 +11,14 @@ const sendPackage = async (req, res) => {
      }
 }
 
-export {sendPackage}
+const allPaymentMethod = async (req, res) => {
+     try {
+        const result =  await getPaymentMethod()
+        
+          res.status(200).send({status:"Ok", data: result, message: "Successful"})
+     } catch (error) {
+          res.status(400).send(error.message)
+     }
+}
+
+export {sendPackage, allPaymentMethod}

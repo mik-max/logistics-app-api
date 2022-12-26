@@ -30,9 +30,5 @@ VALUES(
       @password,
       @dateCreated
 )
-INSERT INTO [dbo].[DriverAccounts]
-           ([UserId])
-     VALUES
-           (@userId)
 
 END
