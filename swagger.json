@@ -536,6 +536,119 @@
                   }
               }
           }
+      },
+      "/api/v1/business": {
+          "post": {
+              "summary": "Creates a business account",
+              "tags": [
+                 "business"
+              ],
+              "description":"This endpoint creates a Business account for a user",
+              "requestBody": {
+               "required": true,
+               "content": {
+                   "application/json": {
+                       "schema": {
+                           "type": "object",
+                           "properties": {
+                               "businessName": {
+                                   "type": "string"
+                               },
+                               "role": {
+                                   "type": "string",
+                                   "example":"Business"
+                               },
+                               "email": {
+                                   "type": "string"
+                               },
+                               "password": {
+                                   "type": "string"
+                               }
+                           }
+                       }
+                   }
+               }
+           },
+              "responses": {
+                  "201": {
+                      "description": "An object containing status data and message",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "type": "object",
+                                  "properties": {
+                                   "status": {
+                                        "type": "string"
+                                   },
+                                   "data":{
+                                        "type": "string",
+                                        "example": null
+                                   },
+                                   "mesage": {
+                                        "type":"string"
+                                   }
+                                  }
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/api/v1/business/login": {
+          "post": {
+              "summary": "Logs in a business",
+              "tags": [
+                 "business"
+              ],
+              "description":"This endpoint Logs in a business into the business account",
+              "requestBody": {
+               "required": true,
+               "content": {
+                   "application/json": {
+                       "schema": {
+                           "type": "object",
+                           "properties": {
+                               "email": {
+                                   "type": "string"
+                               },
+                               "password": {
+                                   "type": "string"
+                               }
+                           }
+                       }
+                   }
+               }
+           },
+              "responses": {
+                  "200": {
+                      "description": "An object containing status data and message",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "type": "object",
+                                  "properties": {
+                                   "status": {
+                                        "type": "string"
+                                   },
+                                   "data":{
+                                        "type": "object",
+                                        "properties": {
+                                             "token":{
+                                                  "type":"string"
+                                             }
+                                        }
+                                   },
+                                   "mesage": {
+                                        "type":"string"
+                                   }
+                                  }
+                              }
+                          }
+                      }
+                  }
+              }
+          }
       }
       
     }

@@ -4,6 +4,7 @@ select
       ,[RoleId]
       ,[dbo].[Users].[Email] 
 	  ,[UserId]
+       ,[WishToDrive]
 	  ,[Name] as Role
  FROM [LogisticsApp].[dbo].[Users]
  inner join [LogisticsApp].[dbo].[UserAccounts] on [dbo].[Users].[Id] = [dbo].[UserAccounts].[UserId]

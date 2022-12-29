@@ -18,6 +18,7 @@ const createCustomerData = async (userData) => {
            .input("LastName", sql.VarChar(30), userData.lastName)
            .input("RoleId", sql.TinyInt, roleId.recordset[0].Id)
            .input("Email", sql.VarChar(50), userData.email)
+           .input("WishToDrive", sql.Bit, userData.wishToDrive)
            .input("Password", sql.VarChar(150), hashedPassword)
            .input("DateCreated", sql.DateTime2, isoDateTime)
            .query(sqlQueries.createCustomer);

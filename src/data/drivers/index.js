@@ -21,6 +21,7 @@ const createDriverData = async (driverData) => {
           .input("LastName", sql.VarChar(30), driverData.lastName)
           .input("RoleId", sql.TinyInt, roleId.recordset[0].Id)
           .input("Email", sql.VarChar(50), driverData.email)
+          .input("WishToDrive", sql.Bit, userData.wishToDrive)
           .input("DateOfBirth", sql.VarChar(20), driverData.dateOfBirth)
           .input("Password", sql.VarChar(150), hashedPassword)
           .input("DateCreated", sql.DateTime2, isoDateTime)
@@ -59,7 +60,7 @@ const loginDriverData = async (email, password) => {
 }
 
 
-const updateDriverData = async(Id,state, driverData) => {
+const updateDriverData = async(Id, state, driverData) => {
     let date = new Date();
     let isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
 

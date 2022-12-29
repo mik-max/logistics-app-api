@@ -33,6 +33,7 @@ const createPackageData = async (packageData) => {
            .input("DateCreated", sql.DateTime2, isoDateTime)
            .query(sqlQueries.sendPackage);
            await pool.close() // closed database conection
+
            console.log(insertPackage.recordset)
            return insertPackage.recordset;
      } catch (error) {

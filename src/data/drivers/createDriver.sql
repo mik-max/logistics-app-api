@@ -22,12 +22,14 @@ INSERT INTO [dbo].[UserAccounts](
      [UserId]
      ,[Email]
      ,[Password]
+     ,[WishToDrive]
      ,[DateCreated]
 )
 VALUES(
       @userId,
       @email,
       @password,
+      @wishToDrive,
       @dateCreated
 )
 
