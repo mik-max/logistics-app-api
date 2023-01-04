@@ -3,7 +3,8 @@ import {createPackageData, getPaymentMethod} from '../data/packages/index.js'
 const sendPackage = async (req, res) => {
      try {
           const data = req.body
-          await createPackageData(data)
+          const tt = await createPackageData(data)
+          console.log(tt)
           res.status(200).send({status:'Ok', data: null, message: 'Successful'})
           // console.log(data)
      } catch (error) {
