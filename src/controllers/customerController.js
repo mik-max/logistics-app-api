@@ -11,6 +11,7 @@ const createCustomer =  async (req, res) => {
           let data = await createCustomerData(req.body);
           console.log(data)
         res.status(200).send({status:'Ok', data:null, message: "successfully Created"});
+
      }else{
           res.status(400).send({status:'Failed', data:null, message: "Email is invalid"});
      }  
@@ -52,7 +53,8 @@ const loginCustomer = async (req, res) => {
 const getDriver = async (req, res) => {
      try {
           const data = await getDriverData(req.body.state)
-          res.status(201).send({status:'Ok', data: data, message: "Successfull"})
+          const selectedDriver = data[0];
+          res.status(200).send({status:'Ok', data: {selectedDriver: selectedDriver}, message: "Successfull"})
      } catch (error) {
           res.status(400).send(error.message)
           console.log(error.message)

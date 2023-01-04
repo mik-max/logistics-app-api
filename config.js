@@ -30,7 +30,7 @@ let configData = {
      flwSecretKey:FLUTTERWAVE_SECRETE_KEY,
      flwEncryptionKey:FLUTTERWAVE_ENCRYPTION_KEY,
      sendInBlueApiKey: SENDINBLUE_API_KEY,
-     mongoDbConnectionUrl: MONGODB_CONNECTIONURL,
+     // mongoDbConnectionUrl: MONGODB_CONNECTIONURL,
      expressSessionSecrete: EXPRESS_SESSION_SECRETE,
      otpSalt: OTP_SALT,
      sql:{

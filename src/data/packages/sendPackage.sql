@@ -1,48 +1,52 @@
 BEGIN
+DECLARE @recieverId INT
 
--- DECLARE @recieverId INT
-
-INSERT INTO [dbo].[Senders]
-           ([UserId]
-           ,[Name]
-           ,[PhoneNumber]
-           ,[State]
-           ,[LGA]
-           ,[Address]
-           ,[DateCreated])
+INSERT INTO [dbo].[Senders](
+          [UserId]
+           ,[Name] 
+           ,[PhoneNumber] 
+           ,[State]       
+           ,[LGA]  
+           ,[Address]       
+           ,[DateCreated]
+           )
            
-     VALUES
-           (@userId
+     VALUES(
+          @userId
            ,@name
            ,@phoneNumber
            ,@state
            ,@lga
            ,@address
-           ,@dateCreated)
--- OUTPUT INSERTED.[SenderId]
--- INTO [dbo].[Packages] ([SenderId])
+           ,@dateCreated
+           )
+OUTPUT INSERTED.[SenderId]
+INTO [dbo].[Packages] ([SenderId])
 
 
--- INSERT INTO [dbo].[Receivers]
---            ([Name]
---            ,[PhoneNumber]
---            ,[State]
---            ,[LGA]
---            ,[Address]
---           ,[DateCreated])
+INSERT INTO [dbo].[Receivers](
+               [Name] 
+           ,[PhoneNumber] 
+           ,[State] 
+           ,[LGA]
+           ,[Address]  
+          ,[DateCreated]
+          )
 
---      VALUES
---            (@name
---            ,@phoneNumber
---            ,@state
---            ,@lga
---            ,@address
---            ,@dateCreated)
+     VALUES(
+          @name
+           ,@phoneNumber
+           ,@state
+           ,@lga
+           ,@address
+           ,@dateCreated
+           )
+
+SET @recieverId = @@IDENTITY 
 
 
--- SET @recieverId = @@IDENTITY 
--- INSERT INTO [dbo].[Packages]
-           ([Name] AS PackageName
+INSERT INTO [dbo].[Packages](
+               [Name] 
            ,[Category]
            ,[Weight]
            ,[Quantity]
@@ -53,18 +57,24 @@ INSERT INTO [dbo].[Senders]
            ,[SenderId]
            ,[RecieverId]
            ,[DriverId]
-          ,[DateCreated])
-     VALUES
-           (@name
-           ,@category
-           ,@weight
-           ,@quantity
-           ,@value
-           ,@description
-           ,@image
-           ,@vehicleTypeId
-           ,@senderId
-           ,@recieverId
-           ,@driverId
-           ,@dateCreated)
+          ,[DateCreated]
+          )
+
+     VALUES(
+            @name,
+           @category,
+           @weight,
+           @quantity,
+           @value,
+           @description,
+           @image,
+           @vehicleTypeId,
+           @senderId,
+           @recieverId,
+           @driverId,
+           @dateCreated
+          )
 END
+
+
+

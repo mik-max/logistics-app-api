@@ -10,6 +10,7 @@ let generalSqlQueries = await loadSqlQueries('data/general')
 const createDriverData = async (driverData) => {
     let date = new Date();
     let isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
+    console.log(isoDateTime)
     const hashedPassword = encrypt(driverData.password);
     try {
           console.log(driverData)
@@ -20,6 +21,7 @@ const createDriverData = async (driverData) => {
           .input("LastName", sql.VarChar(30), driverData.lastName)
           .input("RoleId", sql.TinyInt, roleId.recordset[0].Id)
           .input("Email", sql.VarChar(50), driverData.email)
+          .input("WishToDrive", sql.Bit, userData.wishToDrive)
           .input("DateOfBirth", sql.VarChar(20), driverData.dateOfBirth)
           .input("Password", sql.VarChar(150), hashedPassword)
           .input("DateCreated", sql.DateTime2, isoDateTime)
@@ -58,7 +60,7 @@ const loginDriverData = async (email, password) => {
 }
 
 
-const updateDriverData = async(Id,state, driverData) => {
+const updateDriverData = async(Id, state, driverData) => {
     let date = new Date();
     let isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
 
@@ -67,7 +69,7 @@ const updateDriverData = async(Id,state, driverData) => {
        let pool = await sql.connect(configData.sql);
      
         const updateUser = await pool.request()
-          .input("Id", sql.Int, Id)
+          .input("UserId", sql.Int, Id)
           .input("DateOfBirth", sql.VarChar(20), driverData.dateOfBirth)
           .input("PhoneNumber", sql.VarChar(20), driverData.phoneNumber)
           .input("Address", sql.VarChar(50), driverData.address)
@@ -89,7 +91,7 @@ const updateDriverData = async(Id,state, driverData) => {
 
       
         const updateTheDriver = await pool.request()
-          .input("Id", sql.Int, DriverAccountId.recordset[0].Id)
+          .input("UserId", sql.Int, DriverAccountId.recordset[0].Id)
           .input("DriverLisence", sql.VarChar(250), driverData.driverLisence)
           .input("VehicleId", sql.Int, driverData.vehicleId)
           .input("IsPlyingInterState", sql.Bit, isPlyingInterState)

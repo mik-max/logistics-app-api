@@ -9,8 +9,9 @@ const createDriver = async (req, res) => {
      try {
           let validatedEmail = validateEmail(req.body.email)
           if(validatedEmail){
-               await createDriverData(req.body);
-             res.status(200).send({status:'Ok', data:null, message: "User has been successfully created"});
+              await createDriverData(req.body);
+           
+             res.status(201).send({status:'Ok', data:null, message: "account successfully created"});
           }else{
                res.status(400).send({status:'Failed', data:null, message: "Email is invalid"});
           }  
@@ -59,13 +60,13 @@ const updateDriver = async (req, res) => {
                return update
           });
    
-          res.status(200).send(updateState);
+          res.status(201).send(updateState);
         }else{
           const data = req.body;
           const id = req.params.id
 
           const update = await updateDriverData(id, data);
-          res.status(200).send(update);
+          res.status(201).send(update);
         }
   
        if (vehicleData) {

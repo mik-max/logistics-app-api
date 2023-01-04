@@ -2,16 +2,14 @@ BEGIN
 DECLARE @userId INT
 
 INSERT INTO [dbo].[Users](
-     [FirstName]
-     ,[LastName]
+     [BusinessName]
      ,[RoleId]
      ,[Email]
      ,[DateCreated]
 )
 
 VALUES(
-     @firstName,
-     @lastName,
+     @businessName,
      @roleId,
      @email,
      @dateCreated
@@ -21,14 +19,12 @@ INSERT INTO [dbo].[UserAccounts](
      [UserId]
       ,[Email]
       ,[Password]
-      ,[WishToDrive]
       ,[DateCreated]
 )
 VALUES(
       @userId,
       @email,
       @password,
-      @wishToDrive,
       @dateCreated
 )
 
