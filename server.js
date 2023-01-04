@@ -25,7 +25,11 @@ const port = process.env.PORT || 8005
 app.use(express.json());
 
 app.use(session({secret: configData.expressSessionSecrete,resave:false,saveUninitialized: true, store: MongoStore.create({mongoUrl: configData.mongoDbConnectionUrl, dbName: 'celz4db', collectionName: 'sessions', autoRemove: 'interval', autoRemoveInterval: 10, ttl: 900})}));
-app.use(Cors( ));
+app.use(Cors(
+     {
+          origin: 'http://localhost:3000'
+     }
+));
 
 //Endpoints
 app.get('/', (req, res) => res.status(200).send('Hello CleverProgrammers!!!!!. CELZ4 API!!!🔥🔥'))

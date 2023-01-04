@@ -15,7 +15,7 @@ const createCustomer =  async (req, res) => {
           res.status(400).send({status:'Failed', data:null, message: "Email is invalid"});
      }  
     } catch (error) {
-        res.status(400).send(error.message)
+        res.status(500).send(error.message)
     }
 }
 
@@ -25,17 +25,22 @@ const loginCustomer = async (req, res) => {
           let hashedPassword = encrypt(req.body.password)
           if(validatedEmail){
                const data = await loginCustomerData(req.body.email, hashedPassword);
-               const token = Jwt.sign({
-                    firstName: data[0].FirstName,
-                    lastName: data[0].LastName,
-                    email: req.body.email,
-                    userId: data[0].UserId,
-                    role: data[0].Role,
-                    roleId: data[0].RoleId,
-               },'tokensign123')
-             res.status(200).send({status:'Ok', data: {token: token}, message: "successfully logged in"});
+               if(data[0] == undefined){
+                    res.status(400).send({status:'failed', data: null, message: "email or password is incorect"});
+               }else{
+                    const token = Jwt.sign({
+                         firstName: data[0].FirstName,
+                         lastName: data[0].LastName,
+                         email: req.body.email,
+                         userId: data[0].UserId,
+                         role: data[0].Role,
+                         roleId: data[0].RoleId,
+                    },'tokensign123')
+                  res.status(200).send({status:'Ok', data: {token: token}, message: "successfully logged in"});
+               }
+               
           }else{
-               res.status(400).send({status:'Failed', data:null, message: "Email is invalid"});
+               res.status(500).send({status:'Failed', data:null, message: "Email is invalid"});
           }  
         
 

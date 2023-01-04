@@ -20,11 +20,11 @@
     "paths":{
      "/api/v1/otps/resend": {
           "post": {
-              "summary": "Sends a four(4) digit OTP",
+              "summary": "Sends a Six(6) digit OTP",
               "tags": [
                  "otps"
               ],
-              "description":"Generates a random four(4) digit Otp used to verify users email on signup",
+              "description":"Generates a random Six(6) digit Otp used to verify users email on signup",
               "requestBody": {
                "required": true,
                "content": {
@@ -108,6 +108,218 @@
                                    "data":{
                                         "type": "string",
                                         "example": null
+                                   },
+                                   "mesage": {
+                                        "type":"string"
+                                   }
+                                  }
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/api/v1/pay/card": {
+          "post": {
+              "summary": "Card payment endpoint",
+              "tags": [
+                 "Payment"
+              ],
+              "description":"Carries out a card payment",
+              "requestBody": {
+               "required": true,
+               "content": {
+                   "application/json": {
+                       "schema": {
+                           "type": "object",
+                           "properties": {
+                               "cardNumber": {
+                                   "type": "string",
+                                   "example": "5531886652142950"
+                               },
+                               "cvv": {
+                                   "type": "string",
+                                   "example": "564"
+                               },
+                               "expiryMonth": {
+                                   "type": "string",
+                                   "example": "09"
+                               },
+                               "expiryYear": {
+                                   "type": "string",
+                                   "example": "32"
+                               },
+                               "currency": {
+                                   "type": "string",
+                                   "example": "NGN"
+                               },
+                               "totalAmount": {
+                                   "type": "integer",
+                                   "example": 5132.58
+                               },
+                               "subtotalAmount": {
+                                   "type": "integer",
+                                   "example": 5000
+                               },
+                               "email": {
+                                   "type": "string"
+                               },
+                               "fullName": {
+                                   "type": "string"
+                               },
+                               "paymentMethodId": {
+                                   "type": "integer",
+                                   "example": 1
+                               },
+                               "beneficiaryUserId": {
+                                   "type": "integer",
+                                   "example": 1
+                               },
+                               "senderUserId": {
+                                   "type": "integer",
+                                   "example": 2
+                               },
+                               "currencyId": {
+                                   "type": "integer",
+                                   "example": 76
+                               },
+                               "chargeTypeId": {
+                                   "type": "integer",
+                                   "example": 1
+                               }
+                           }
+                       }
+                   }
+               }
+           },
+              "responses": {
+                  "201": {
+                      "description": "An object containing status data and message",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "type": "object",
+                                  "properties": {
+                                   "status": {
+                                        "type": "string"
+                                   },
+                                   "data":{
+                                        "type": "object",
+                                        "properties": {
+                                             "session":{
+                                                  "type":"string"
+                                             }
+                                        }
+                                   },
+                                   "mesage": {
+                                        "type":"string"
+                                   }
+                                  }
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/api/v1/pay/card/auth": {
+          "post": {
+              "summary": "Card payment Auth endpoint",
+              "tags": [
+                 "Payment"
+              ],
+              "description":"Authorize  a card payment",
+              "requestBody": {
+               "required": true,
+               "content": {
+                   "application/json": {
+                       "schema": {
+                           "type": "object",
+                           "properties": {
+                               "pin": {
+                                   "type": "string",
+                                   "example": "3310"
+                               },
+                               "session": {
+                                   "type": "string"
+                               }
+                           }
+                       }
+                   }
+               }
+           },
+              "responses": {
+                  "200": {
+                      "description": "An object containing status data and message",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "type": "object",
+                                  "properties": {
+                                   "status": {
+                                        "type": "string"
+                                   },
+                                   "data":{
+                                        "type": "object",
+                                        "properties": {
+                                             "ref":{
+                                                  "type":"string"
+                                             }
+                                        }
+                                   },
+                                   "mesage": {
+                                        "type":"string"
+                                   }
+                                  }
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/api/v1/pay/validate": {
+          "post": {
+              "summary": "Card payment Verification endpoint",
+              "tags": [
+                 "Payment"
+              ],
+              "description":"Verifies  a card payment",
+              "requestBody": {
+               "required": true,
+               "content": {
+                   "application/json": {
+                       "schema": {
+                           "type": "object",
+                           "properties": {
+                               "otp": {
+                                   "type": "string",
+                                   "example": "12345"
+                               },
+                               "ref": {
+                                   "type": "string"
+                               }
+                           }
+                       }
+                   }
+               }
+           },
+              "responses": {
+                  "200": {
+                      "description": "An object containing status data and message",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "type": "object",
+                                  "properties": {
+                                   "status": {
+                                        "type": "string"
+                                   },
+                                   "data":{
+                                        "type": "string",
+                                        "example": null
+                                        
                                    },
                                    "mesage": {
                                         "type":"string"
