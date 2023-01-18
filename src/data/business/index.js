@@ -6,55 +6,100 @@ let sqlQueries = await loadSqlQueries('data/business');
 let generalSqlQueries = await loadSqlQueries('data/general')
 
 
-const createBusinessData = async (businessData) => {
-     let date = new Date();
-     let isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
-     console.log(isoDateTime)
-     const hashedPassword = encrypt(businessData.password);
+export const uploadBuisnessDocumentData = async (businessId, value,  documentType) => {
+     
      try {
-           console.log(businessData)
            let pool = await sql.connect(configData.sql);
-           const roleId = await pool.request().input('Name', sql.VarChar(20), businessData.role).query(generalSqlQueries.getRoleId)
-           const insertUser = await pool.request()
-           .input("BusinessName", sql.VarChar(30), businessData.businessName)
-           .input("RoleId", sql.TinyInt, roleId.recordset[0].Id)
-           .input("Email", sql.VarChar(50), businessData.email)
-           .input("Password", sql.VarChar(150), hashedPassword)
-           .input("DateCreated", sql.DateTime2, isoDateTime)
-           .query(sqlQueries.createBusiness); 
+           const documentTypeId = await pool.request().input('Name', sql.VarChar(20), documentType).query(generalSqlQueries.getDocumentTypeId)
+           const businessDocuments = await pool.request()
+           .input("BusinessId", sql.Int, businessId)
+           .input("Value", sql.VarChar(200), value)
+           .input("DocumentTypeId", sql.SmallInt, documentTypeId.recordset[0].Id)
+           .query(sqlQueries.upload); 
            await pool.close() // closed database conection
-           return insertUser.recordset;
+           return businessDocuments.recordset;
      } catch (error) {
          return error.message
      }
  
  }
 
- const loginBusinessData = async (email, password) => {
-     let date = new Date();
-     let isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
- //     const hashedPassword = encrypt(driverData.password);
+export const updateBusinessData = async (businessData) => {
      try {
-           let pool = await sql.connect(configData.sql);
-           // const roleId = await pool.request().input('Name', sql.VarChar(20), driverData.role).query(generalSqlQueries.getRoleId)
-           const loginTheBusiness = await pool.request()
-           .input("Email", sql.VarChar(50), email)
-           .input("Password", sql.VarChar(150), password)
-           .input("IsLoggedinBefore", sql.Bit, 1)
-           .input('LoginDate', sql.DateTime2, isoDateTime)
-           .input("DateModified", sql.DateTime2, isoDateTime)
-           .query(sqlQueries.loginBusiness);
- 
-          //  const updateLogin = await pool.request().input("IsLoggedinBefore", sql.Bit, 1)
-          //  .query(generalSqlQueries.updataLoginStatus);
-          //  await pool.close() // closed database conection
-           const loginRecordset = loginTheBusiness.recordset;
-           const updateLoginRecordset = updateLogin.recordset;
-           return {loginRecordset, updateLoginRecordset};
+          let date = new Date();
+          let isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
+          let pool = await sql.connect(configData.sql);
+          const business = await pool.request()
+          .input("UserAccountId", sql.Int, businessData.userAcountId)
+          .input("Name", sql.VarChar(50), businessData.name)
+          .input("Address", sql.VarChar(50), businessData.address)
+          .input("City", sql.VarChar(20), businessData.city)
+          .input("State", sql.VarChar(20), businessData.state)
+          .input("InceptionDate", sql.VarChar(10), businessData.inceptionDate)
+          .input("DateCreated", sql.DateTime2, isoDateTime)
+          .query(sqlQueries.updateBusinessInformation); 
+           await pool.close() // closed database conection
+           return business.recordset;
      } catch (error) {
-         return error.message
+          return error.message
      }
- 
- }
-
- export {createBusinessData, loginBusinessData}
+}
+export const getBuisnessInfoData = async (id) => {
+     try {
+          let pool = await sql.connect(configData.sql);
+          const businessInfo = await pool.request()
+          .input("Id", sql.Int, id)
+          .query(sqlQueries.getBusinessBasicInfo); 
+           await pool.close() // closed database conection
+           return businessInfo.recordset;
+     } catch (error) {
+          return error.message
+     }
+}
+export const getBuisnessDocumentData = async () => {
+     try {
+          let pool = await sql.connect(configData.sql);
+          const businessDocs = await pool.request()
+          .query(sqlQueries.getBusinessDocuments); 
+           await pool.close() // closed database conection
+           return businessDocs.recordset;
+     } catch (error) {
+          return error.message
+     }
+}
+export const getBuisnessDocumentDataById = async (id) => {
+     try {
+          let pool = await sql.connect(configData.sql);
+          const businessDocs = await pool.request()
+          .input("Id", sql.Int, id)
+          .query(sqlQueries.getBusinessDocumentById); 
+           await pool.close() // closed database conection
+           return businessDocs.recordset;
+     } catch (error) {
+          return error.message
+     }
+}
+export const verifyBuisnessDocumentData = async (id) => {
+     try {
+          let pool = await sql.connect(configData.sql);
+          const businessDocs = await pool.request()
+          .input("Id", sql.Int, id)
+          .query(sqlQueries.verifyBusinessDocument); 
+           await pool.close() // closed database conection
+           return businessDocs.recordset;
+     } catch (error) {
+          return error.message
+     }
+}
+export const declineBuisnessDocumentData = async (id) => {
+     try {
+          let pool = await sql.connect(configData.sql);
+          const businessDocs = await pool.request()
+          .input("Id", sql.Int, id)
+          .query(sqlQueries.declineBusinessDocument); 
+           await pool.close() // closed database conection
+           return businessDocs.recordset;
+     } catch (error) {
+          return error.message
+     }
+}

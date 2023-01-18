@@ -1,16 +1,14 @@
 BEGIN
 
-INSERT INTO [dbo].[BusinessAccount]
-           ([UserId]
-           ,[TaxIdentificationNumber]
-           ,[ProofOfAddress]
-           ,[IncorporationDocument])
+INSERT INTO [dbo].[BusinessDocuments]
+           ([BusinessId]
+           ,[Value]
+           ,[DocumentTypeId])
      VALUES
            (
-               @UserId,
-               @taxIdentificationNumber,
-               @proofOfAddress,
-               @incorporationDocument
+               @businessId,
+               @value,
+               @documentTypeId,
            )
 
 END

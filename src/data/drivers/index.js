@@ -7,60 +7,60 @@ let sqlQueries = await loadSqlQueries('data/drivers')
 let generalSqlQueries = await loadSqlQueries('data/general')
 
 
-const createDriverData = async (driverData) => {
-    let date = new Date();
-    let isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
-    console.log(isoDateTime)
-    const hashedPassword = encrypt(driverData.password);
-    try {
-          console.log(driverData)
-          let pool = await sql.connect(configData.sql);
-          const roleId = await pool.request().input('Name', sql.VarChar(20), driverData.role).query(generalSqlQueries.getRoleId)
-          const insertUser = await pool.request()
-          .input("FirstName", sql.VarChar(30), driverData.firstName)
-          .input("LastName", sql.VarChar(30), driverData.lastName)
-          .input("RoleId", sql.TinyInt, roleId.recordset[0].Id)
-          .input("Email", sql.VarChar(50), driverData.email)
-          .input("WishToDrive", sql.Bit, userData.wishToDrive)
-          .input("DateOfBirth", sql.VarChar(20), driverData.dateOfBirth)
-          .input("Password", sql.VarChar(150), hashedPassword)
-          .input("DateCreated", sql.DateTime2, isoDateTime)
-          .query(sqlQueries.createDriver);
-          await pool.close() // closed database conection
-          return insertUser.recordset;
-    } catch (error) {
-        return error.message
-    }
-
-}
-const loginDriverData = async (email, password) => {
-    let date = new Date();
-    let isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
+// const createDriverData = async (driverData) => {
+//     let date = new Date();
+//     let isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
+//     console.log(isoDateTime)
 //     const hashedPassword = encrypt(driverData.password);
-    try {
-          let pool = await sql.connect(configData.sql);
-          // const roleId = await pool.request().input('Name', sql.VarChar(20), driverData.role).query(generalSqlQueries.getRoleId)
-          const loginTheDriver = await pool.request()
-          .input("Email", sql.VarChar(50), email)
-          .input("Password", sql.VarChar(150), password)
-          .input('LoginDate', sql.DateTime2, isoDateTime)
-          .input("DateModified", sql.DateTime2, isoDateTime)
-          .query(sqlQueries.loginDriver);
+//     try {
+//           console.log(driverData)
+//           let pool = await sql.connect(configData.sql);
+//           const roleId = await pool.request().input('Name', sql.VarChar(20), driverData.role).query(generalSqlQueries.getRoleId)
+//           const insertUser = await pool.request()
+//           .input("FirstName", sql.VarChar(30), driverData.firstName)
+//           .input("LastName", sql.VarChar(30), driverData.lastName)
+//           .input("RoleId", sql.TinyInt, roleId.recordset[0].Id)
+//           .input("Email", sql.VarChar(50), driverData.email)
+//           .input("WishToDrive", sql.Bit, userData.wishToDrive)
+//           .input("DateOfBirth", sql.VarChar(20), driverData.dateOfBirth)
+//           .input("Password", sql.VarChar(150), hashedPassword)
+//           .input("DateCreated", sql.DateTime2, isoDateTime)
+//           .query(sqlQueries.createDriver);
+//           await pool.close() // closed database conection
+//           return insertUser.recordset;
+//     } catch (error) {
+//         return error.message
+//     }
 
-          const updateLogin = await pool.request().input("IsLoggedinBefore", sql.Bit, 0)
-          .query(generalSqlQueries.updataLoginStatus);
-          await pool.close() // closed database conection
-          const loginRecordset = loginTheDriver.recordset;
-          const updateLoginRecordset = updateLogin.recordset;
-          return loginTheDriver.recordset;
-    } catch (error) {
-        return error.message
-    }
+// }
+// const loginDriverData = async (email, password) => {
+//     let date = new Date();
+//     let isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
+// //     const hashedPassword = encrypt(driverData.password);
+//     try {
+//           let pool = await sql.connect(configData.sql);
+//           // const roleId = await pool.request().input('Name', sql.VarChar(20), driverData.role).query(generalSqlQueries.getRoleId)
+//           const loginTheDriver = await pool.request()
+//           .input("Email", sql.VarChar(50), email)
+//           .input("Password", sql.VarChar(150), password)
+//           .input('LoginDate', sql.DateTime2, isoDateTime)
+//           .input("DateModified", sql.DateTime2, isoDateTime)
+//           .query(sqlQueries.loginDriver);
 
-}
+//           const updateLogin = await pool.request().input("IsLoggedinBefore", sql.Bit, 0)
+//           .query(generalSqlQueries.updataLoginStatus);
+//           await pool.close() // closed database conection
+//           const loginRecordset = loginTheDriver.recordset;
+//           const updateLoginRecordset = updateLogin.recordset;
+//           return loginTheDriver.recordset;
+//     } catch (error) {
+//         return error.message
+//     }
+
+// }
 
 
-const updateDriverData = async(Id, state, driverData) => {
+export const updateDriverData = async(Id, state, driverData) => {
     let date = new Date();
     let isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
 
@@ -120,6 +120,3 @@ const updateDriverData = async(Id, state, driverData) => {
 }
 
 
-
-
-export { createDriverData,loginDriverData, updateDriverData};

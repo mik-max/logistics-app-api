@@ -18,629 +18,931 @@
      ],
      
     "paths":{
-     "/api/v1/otps/resend": {
-          "post": {
-              "summary": "Sends a Six(6) digit OTP",
-              "tags": [
-                 "otps"
-              ],
-              "description":"Generates a random Six(6) digit Otp used to verify users email on signup",
-              "requestBody": {
-               "required": true,
-               "content": {
-                   "application/json": {
-                       "schema": {
-                           "type": "object",
-                           "properties": {
-                               "email": {
-                                   "type": "string"
-                               }
-                           },
-                           "required": [
-                               "email"
-                           ]
-                       }
-                   }
-               }
-           },
-              "responses": {
-                  "201": {
-                      "description": "An object containing status data and message",
-                      "content": {
-                          "application/json": {
-                              "schema": {
-                                  "type": "object",
-                                  "properties": {
-                                   "status": {
+          "/api/v1/otps/resend": {
+               "post": {
+               "summary": "Sends a Six(6) digit OTP",
+               "tags": [
+                    "otps"
+               ],
+               "description":"Generates a random Six(6) digit Otp used to verify users email on signup",
+               "requestBody": {
+                    "required": true,
+                    "content": {
+                    "application/json": {
+                         "schema": {
+                              "type": "object",
+                              "properties": {
+                                   "email": {
                                         "type": "string"
-                                   },
-                                   "data":{
-                                        "type": "string",
-                                        "example": null
-                                   },
-                                   "mesage": {
-                                        "type":"string"
                                    }
-                                  }
-                              }
-                          }
-                      }
-                  }
-              }
-          }
-      },
-      "/api/v1/otps/verify": {
-          "post": {
-              "summary": "Verifies an OTP",
-              "tags": [
-                 "otps"
-              ],
-              "description":"Checks if OTP is still active and verifies it",
-              "requestBody": {
-               "required": true,
-               "content": {
-                   "application/json": {
-                       "schema": {
-                           "type": "object",
-                           "properties": {
-                               "otp": {
-                                   "type": "string"
-                               }
-                           },
-                           "required": [
-                               "otp"
-                           ]
-                       }
-                   }
-               }
-           },
-              "responses": {
-                  "201": {
-                      "description": "An object containing status data and message",
-                      "content": {
-                          "application/json": {
-                              "schema": {
-                                  "type": "object",
-                                  "properties": {
-                                   "status": {
-                                        "type": "string"
-                                   },
-                                   "data":{
-                                        "type": "string",
-                                        "example": null
-                                   },
-                                   "mesage": {
-                                        "type":"string"
-                                   }
-                                  }
-                              }
-                          }
-                      }
-                  }
-              }
-          }
-      },
-      "/api/v1/pay/card": {
-          "post": {
-              "summary": "Card payment endpoint",
-              "tags": [
-                 "Payment"
-              ],
-              "description":"Carries out a card payment",
-              "requestBody": {
-               "required": true,
-               "content": {
-                   "application/json": {
-                       "schema": {
-                           "type": "object",
-                           "properties": {
-                               "cardNumber": {
-                                   "type": "string",
-                                   "example": "5531886652142950"
-                               },
-                               "cvv": {
-                                   "type": "string",
-                                   "example": "564"
-                               },
-                               "expiryMonth": {
-                                   "type": "string",
-                                   "example": "09"
-                               },
-                               "expiryYear": {
-                                   "type": "string",
-                                   "example": "32"
-                               },
-                               "currency": {
-                                   "type": "string",
-                                   "example": "NGN"
-                               },
-                               "totalAmount": {
-                                   "type": "integer",
-                                   "example": 5132.58
-                               },
-                               "subtotalAmount": {
-                                   "type": "integer",
-                                   "example": 5000
-                               },
-                               "email": {
-                                   "type": "string"
-                               },
-                               "fullName": {
-                                   "type": "string"
-                               },
-                               "paymentMethodId": {
-                                   "type": "integer",
-                                   "example": 1
-                               },
-                               "beneficiaryUserId": {
-                                   "type": "integer",
-                                   "example": 1
-                               },
-                               "senderUserId": {
-                                   "type": "integer",
-                                   "example": 2
-                               },
-                               "currencyId": {
-                                   "type": "integer",
-                                   "example": 76
-                               },
-                               "chargeTypeId": {
-                                   "type": "integer",
-                                   "example": 1
-                               }
-                           }
-                       }
-                   }
-               }
-           },
-              "responses": {
-                  "201": {
-                      "description": "An object containing status data and message",
-                      "content": {
-                          "application/json": {
-                              "schema": {
-                                  "type": "object",
-                                  "properties": {
-                                   "status": {
-                                        "type": "string"
-                                   },
-                                   "data":{
-                                        "type": "object",
-                                        "properties": {
-                                             "session":{
-                                                  "type":"string"
-                                             }
+                              },
+                              "required": [
+                                   "email"
+                              ]
+                         }
+                    }
+                    }
+               },
+               "responses": {
+                    "201": {
+                         "description": "An object containing status data and message",
+                         "content": {
+                              "application/json": {
+                                   "schema": {
+                                   "type": "object",
+                                   "properties": {
+                                        "status": {
+                                             "type": "string"
+                                        },
+                                        "data":{
+                                             "type": "string",
+                                             "example": null
+                                        },
+                                        "mesage": {
+                                             "type":"string"
                                         }
-                                   },
-                                   "mesage": {
-                                        "type":"string"
                                    }
-                                  }
+                                   }
                               }
-                          }
-                      }
-                  }
-              }
-          }
-      },
-      "/api/v1/pay/card/auth": {
-          "post": {
-              "summary": "Card payment Auth endpoint",
-              "tags": [
-                 "Payment"
-              ],
-              "description":"Authorize  a card payment",
-              "requestBody": {
-               "required": true,
-               "content": {
-                   "application/json": {
-                       "schema": {
-                           "type": "object",
-                           "properties": {
-                               "pin": {
-                                   "type": "string",
-                                   "example": "3310"
-                               },
-                               "session": {
-                                   "type": "string"
-                               }
-                           }
-                       }
-                   }
+                         }
+                    }
                }
-           },
-              "responses": {
-                  "200": {
-                      "description": "An object containing status data and message",
-                      "content": {
-                          "application/json": {
-                              "schema": {
-                                  "type": "object",
-                                  "properties": {
-                                   "status": {
+               }
+          },
+          "/api/v1/otps/verify": {
+               "post": {
+               "summary": "Verifies an OTP",
+               "tags": [
+                    "otps"
+               ],
+               "description":"Checks if OTP is still active and verifies it",
+               "requestBody": {
+                    "required": true,
+                    "content": {
+                    "application/json": {
+                         "schema": {
+                              "type": "object",
+                              "properties": {
+                                   "otp": {
                                         "type": "string"
-                                   },
-                                   "data":{
-                                        "type": "object",
-                                        "properties": {
-                                             "ref":{
-                                                  "type":"string"
-                                             }
+                                   }
+                              },
+                              "required": [
+                                   "otp"
+                              ]
+                         }
+                    }
+                    }
+               },
+               "responses": {
+                    "201": {
+                         "description": "An object containing status data and message",
+                         "content": {
+                              "application/json": {
+                                   "schema": {
+                                   "type": "object",
+                                   "properties": {
+                                        "status": {
+                                             "type": "string"
+                                        },
+                                        "data":{
+                                             "type": "string",
+                                             "example": null
+                                        },
+                                        "mesage": {
+                                             "type":"string"
                                         }
-                                   },
-                                   "mesage": {
-                                        "type":"string"
                                    }
-                                  }
+                                   }
                               }
-                          }
-                      }
-                  }
-              }
-          }
-      },
-      "/api/v1/pay/validate": {
-          "post": {
-              "summary": "Card payment Verification endpoint",
-              "tags": [
-                 "Payment"
-              ],
-              "description":"Verifies  a card payment",
-              "requestBody": {
-               "required": true,
-               "content": {
-                   "application/json": {
-                       "schema": {
-                           "type": "object",
-                           "properties": {
-                               "otp": {
-                                   "type": "string",
-                                   "example": "12345"
-                               },
-                               "ref": {
-                                   "type": "string"
-                               }
-                           }
-                       }
-                   }
+                         }
+                    }
                }
-           },
-              "responses": {
-                  "200": {
-                      "description": "An object containing status data and message",
-                      "content": {
-                          "application/json": {
-                              "schema": {
-                                  "type": "object",
-                                  "properties": {
-                                   "status": {
-                                        "type": "string"
-                                   },
-                                   "data":{
+               }
+          },
+          "/api/v1/pay/card": {
+               "post": {
+               "summary": "Card payment endpoint",
+               "tags": [
+                    "Payment"
+               ],
+               "description":"Carries out a card payment",
+               "requestBody": {
+                    "required": true,
+                    "content": {
+                    "application/json": {
+                         "schema": {
+                              "type": "object",
+                              "properties": {
+                                   "cardNumber": {
                                         "type": "string",
-                                        "example": null
-                                        
+                                        "example": "5531886652142950"
                                    },
-                                   "mesage": {
-                                        "type":"string"
-                                   }
-                                  }
-                              }
-                          }
-                      }
-                  }
-              }
-          }
-      },
-      "/api/v1/customer": {
-          "post": {
-              "summary": "Creates a customer account",
-              "tags": [
-                 "customer"
-              ],
-              "description":"This endpoint creates a customer account for a user",
-              "requestBody": {
-               "required": true,
-               "content": {
-                   "application/json": {
-                       "schema": {
-                           "type": "object",
-                           "properties": {
-                               "firstName": {
-                                   "type": "string"
-                               },
-                               "lastName": {
-                                   "type": "string"
-                               },
-                               "role": {
-                                   "type": "string",
-                                   "example":"Customer"
-                               },
-                               "email": {
-                                   "type": "string"
-                               },
-                               "password": {
-                                   "type": "string"
-                               }
-                           }
-                       }
-                   }
-               }
-           },
-              "responses": {
-                  "201": {
-                      "description": "An object containing status data and message",
-                      "content": {
-                          "application/json": {
-                              "schema": {
-                                  "type": "object",
-                                  "properties": {
-                                   "status": {
-                                        "type": "string"
-                                   },
-                                   "data":{
+                                   "cvv": {
                                         "type": "string",
-                                        "example": null
+                                        "example": "564"
                                    },
-                                   "mesage": {
-                                        "type":"string"
-                                   }
-                                  }
-                              }
-                          }
-                      }
-                  }
-              }
-          }
-      },
-      "/api/v1/customer/login": {
-          "post": {
-              "summary": "Logs in a customer",
-              "tags": [
-                 "customer"
-              ],
-              "description":"This endpoint Logs in a customer into his/her account",
-              "requestBody": {
-               "required": true,
-               "content": {
-                   "application/json": {
-                       "schema": {
-                           "type": "object",
-                           "properties": {
-                               "email": {
-                                   "type": "string"
-                               },
-                               "password": {
-                                   "type": "string"
-                               }
-                           }
-                       }
-                   }
-               }
-           },
-              "responses": {
-                  "200": {
-                      "description": "An object containing status data and message",
-                      "content": {
-                          "application/json": {
-                              "schema": {
-                                  "type": "object",
-                                  "properties": {
-                                   "status": {
+                                   "expiryMonth": {
+                                        "type": "string",
+                                        "example": "09"
+                                   },
+                                   "expiryYear": {
+                                        "type": "string",
+                                        "example": "32"
+                                   },
+                                   "currency": {
+                                        "type": "string",
+                                        "example": "NGN"
+                                   },
+                                   "totalAmount": {
+                                        "type": "integer",
+                                        "example": 5132.58
+                                   },
+                                   "subtotalAmount": {
+                                        "type": "integer",
+                                        "example": 5000
+                                   },
+                                   "email": {
                                         "type": "string"
                                    },
-                                   "data":{
-                                        "type": "object",
-                                        "properties": {
-                                             "token":{
-                                                  "type":"string"
-                                             }
-                                        }
-                                   },
-                                   "mesage": {
-                                        "type":"string"
-                                   }
-                                  }
-                              }
-                          }
-                      }
-                  }
-              }
-          }
-      },
-      "/api/v1/select/driver": {
-          "post": {
-              "summary": "Select a Driver",
-              "tags": [
-                 "customer"
-              ],
-              "description":"This endpoint allows a Customer, select a Driver by the state he/she wants to send a package to.",
-              "requestBody": {
-               "required": true,
-               "content": {
-                   "application/json": {
-                       "schema": {
-                           "type": "object",
-                           "properties": {
-                               "state": {
-                                   "type": "string",
-                                   "example": "Ogun"
-                               }
-                           }
-                       }
-                   }
-               }
-           },
-              "responses": {
-                  "200": {
-                      "description": "An object containing status data and message",
-                      "content": {
-                          "application/json": {
-                              "schema": {
-                                  "type": "object",
-                                  "properties": {
-                                   "status": {
+                                   "fullName": {
                                         "type": "string"
                                    },
-                                   "data":{ 
-                                        "type": "object",
-                                        "properties":{
-                                             "selectedDriver":{
-                                                  "type":"object",
-                                                  "properties":{
-                                                       "Id": {"type":"number"},
-                                                       "DriverAccountId": {"type":"number"},
-                                                       "StateId": {"type":"number"},
-                                                       "Rating": {"type":"string"},
-                                                       "FirstName": {"type":"string"},
-                                                       "LastName": {"type":"string"},
-                                                       "Email": {"type":"string"},
-                                                       "PhoneNumber": {"type":"string"},
-                                                       "Address": {"type":"string"},
-                                                       "City": {"type":"string"},
-                                                       "State": {"type":"string"},
-                                                       "LisencePlate": {"type":"string"},
-                                                       "Name": {"type":"string"}
+                                   "paymentMethodId": {
+                                        "type": "integer",
+                                        "example": 1
+                                   },
+                                   "beneficiaryUserId": {
+                                        "type": "integer",
+                                        "example": 1
+                                   },
+                                   "senderUserId": {
+                                        "type": "integer",
+                                        "example": 2
+                                   },
+                                   "currencyId": {
+                                        "type": "integer",
+                                        "example": 76
+                                   },
+                                   "chargeTypeId": {
+                                        "type": "integer",
+                                        "example": 1
+                                   }
+                              }
+                         }
+                    }
+                    }
+               },
+               "responses": {
+                    "201": {
+                         "description": "An object containing status data and message",
+                         "content": {
+                              "application/json": {
+                                   "schema": {
+                                   "type": "object",
+                                   "properties": {
+                                        "status": {
+                                             "type": "string"
+                                        },
+                                        "data":{
+                                             "type": "object",
+                                             "properties": {
+                                                  "session":{
+                                                       "type":"string"
                                                   }
                                              }
-                                             
-                                        }    
-                                   },
-                                   "mesage": {
-                                        "type":"string"
+                                        },
+                                        "mesage": {
+                                             "type":"string"
+                                        }
                                    }
-                                  }
+                                   }
                               }
-                          }
-                      }
-                  }
-              }
-          }
-      },
-      "/api/v1/driver": {
-          "post": {
-              "summary": "Creates a Driver account",
-              "tags": [
-                 "driver"
-              ],
-              "description":"This endpoint creates a Driver account for a user",
-              "requestBody": {
-               "required": true,
-               "content": {
-                   "application/json": {
-                       "schema": {
-                           "type": "object",
-                           "properties": {
-                               "firstName": {
-                                   "type": "string"
-                               },
-                               "lastName": {
-                                   "type": "string"
-                               },
-                               "role": {
-                                   "type": "string",
-                                   "example":"Driver"
-                               },
-                               "email": {
-                                   "type": "string"
-                               },
-                               "password": {
-                                   "type": "string"
-                               }
-                           }
-                       }
-                   }
+                         }
+                    }
                }
-           },
-              "responses": {
-                  "201": {
-                      "description": "An object containing status data and message",
-                      "content": {
-                          "application/json": {
-                              "schema": {
-                                  "type": "object",
-                                  "properties": {
-                                   "status": {
-                                        "type": "string"
-                                   },
-                                   "data":{
+               }
+          },
+          "/api/v1/pay/card/auth": {
+               "post": {
+               "summary": "Card payment Auth endpoint",
+               "tags": [
+                    "Payment"
+               ],
+               "description":"Authorize  a card payment",
+               "requestBody": {
+                    "required": true,
+                    "content": {
+                    "application/json": {
+                         "schema": {
+                              "type": "object",
+                              "properties": {
+                                   "pin": {
                                         "type": "string",
-                                        "example": null
+                                        "example": "3310"
                                    },
-                                   "mesage": {
-                                        "type":"string"
+                                   "session": {
+                                        "type": "string"
                                    }
-                                  }
                               }
-                          }
-                      }
-                  }
-              }
-          }
-      },
-      "/api/v1/driver/login": {
-          "post": {
-              "summary": "Logs in a driver",
-              "tags": [
-                 "driver"
-              ],
-              "description":"This endpoint Logs in a driver into his/her account",
-              "requestBody": {
-               "required": true,
-               "content": {
-                   "application/json": {
-                       "schema": {
-                           "type": "object",
-                           "properties": {
-                               "email": {
-                                   "type": "string"
-                               },
-                               "password": {
-                                   "type": "string"
+                         }
+                    }
+                    }
+               },
+               "responses": {
+                    "200": {
+                         "description": "An object containing status data and message",
+                         "content": {
+                              "application/json": {
+                                   "schema": {
+                                   "type": "object",
+                                   "properties": {
+                                        "status": {
+                                             "type": "string"
+                                        },
+                                        "data":{
+                                             "type": "object",
+                                             "properties": {
+                                                  "ref":{
+                                                       "type":"string"
+                                                  }
+                                             }
+                                        },
+                                        "mesage": {
+                                             "type":"string"
+                                        }
+                                   }
+                                   }
+                              }
+                         }
+                    }
+               }
+               }
+          },
+          "/api/v1/pay/validate": {
+               "post": {
+               "summary": "Card payment Verification endpoint",
+               "tags": [
+                    "Payment"
+               ],
+               "description":"Verifies  a card payment",
+               "requestBody": {
+                    "required": true,
+                    "content": {
+                    "application/json": {
+                         "schema": {
+                              "type": "object",
+                              "properties": {
+                                   "otp": {
+                                        "type": "string",
+                                        "example": "12345"
+                                   },
+                                   "ref": {
+                                        "type": "string"
+                                   }
+                              }
+                         }
+                    }
+                    }
+               },
+               "responses": {
+                    "200": {
+                         "description": "An object containing status data and message",
+                         "content": {
+                              "application/json": {
+                                   "schema": {
+                                   "type": "object",
+                                   "properties": {
+                                        "status": {
+                                             "type": "string"
+                                        },
+                                        "data":{
+                                             "type": "string",
+                                             "example": null
+                                             
+                                        },
+                                        "mesage": {
+                                             "type":"string"
+                                        }
+                                   }
+                                   }
+                              }
+                         }
+                    }
+               }
+               }
+          },
+          "/api/v1/user": {
+               "post": {
+               "summary": "Creates a user account",
+               "tags": [
+                    "user"
+               ],
+               "description":"This endpoint creates an account for a user on the platform",
+               "requestBody": {
+                    "required": true,
+                    "content": {
+                    "application/json": {
+                         "schema": {
+                              "type": "object",
+                              "properties": {
+                                   "email": {
+                                        "type": "string"
+                                   },
+                                   "password": {
+                                        "type": "string"
+                                   },
+                                   "role": {
+                                        "type": "string",
+                                        "example": "Business"
+                                   },
+                                   "wishToDrive": {
+                                        "type": "boolean",
+                                        "example": false
+                                   }
+                                   }
+                              }
+                         }
+                    }
+                    }
+               },
+               "responses": {
+                    "201": {
+                         "description": "An object containing status data and message",
+                         "content": {
+                              "application/json": {
+                                   "schema": {
+                                   "type": "object",
+                                   "properties": {
+                                        "status": {
+                                             "type": "string"
+                                        },
+                                        "data":{
+                                             "type": "string",
+                                             "example": null
+                                        },
+                                        "mesage": {
+                                             "type":"string"
+                                        }
+                                   }
+                                   }
+                              }
+                         }
+                    }
+               }
+          },
+          "/api/v1/user/login": {
+               "post": {
+                   "summary": "Logs users into their account",
+                   "tags": [
+                      "user"
+                   ],
+                   "description":"This endpoint Logs in a user into his/her account",
+                   "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                   "responses": {
+                       "200": {
+                           "description": "An object containing status data and message",
+                           "content": {
+                               "application/json": {
+                                   "schema": {
+                                       "type": "object",
+                                       "properties": {
+                                        "status": {
+                                             "type": "string"
+                                        },
+                                        "data":{
+                                             "type": "object",
+                                             "properties": {
+                                                  "token":{
+                                                       "type":"string"
+                                                  }
+                                             }
+                                        },
+                                        "mesage": {
+                                             "type":"string"
+                                        }
+                                       }
+                                   }
                                }
                            }
                        }
                    }
                }
            },
-              "responses": {
-                  "200": {
-                      "description": "An object containing status data and message",
-                      "content": {
-                          "application/json": {
-                              "schema": {
-                                  "type": "object",
-                                  "properties": {
-                                   "status": {
+           "/api/v1/user/update": {
+               "post": {
+               "summary": "Updates a user account",
+               "tags": [
+                    "user"
+               ],
+               "description":"This endpoint updates an account for a user on the platform",
+               "requestBody": {
+                    "required": true,
+                    "content": {
+                    "application/json": {
+                         "schema": {
+                              "type": "object",
+                              "properties": {
+                                   "userAccountId": {
+                                        "type": "integer"
+                                    },
+                                    "firstName": {
                                         "type": "string"
-                                   },
-                                   "data":{
-                                        "type": "object",
-                                        "properties": {
-                                             "token":{
+                                    },
+                                    "lastName": {
+                                        "type": "string"
+                                    },
+                                    "dateOfBirth": {
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "city": {
+                                        "type": "string"
+                                    },
+                                    "state": {
+                                        "type": "string"
+                                    }
+                                   }
+                              }
+                         }
+                    }
+                    }
+               },
+               "responses": {
+                    "201": {
+                         "description": "An object containing status data and message",
+                         "content": {
+                              "application/json": {
+                                   "schema": {
+                                   "type": "object",
+                                   "properties": {
+                                        "status": {
+                                             "type": "string"
+                                        },
+                                        "data":{
+                                             "type": "string",
+                                             "example": null
+                                        },
+                                        "mesage": {
+                                             "type":"string"
+                                        }
+                                   }
+                                   }
+                              }
+                         }
+                    }
+               }
+          },
+           "/api/v1/select/driver": {
+               "post": {
+                   "summary": "Select a Driver",
+                   "tags": [
+                      "customer"
+                   ],
+                   "description":"This endpoint allows a Customer, select a Driver by the state he/she wants to send a package to.",
+                   "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "state": {
+                                        "type": "string",
+                                        "example": "Ogun"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                   "responses": {
+                       "200": {
+                           "description": "An object containing status data and message",
+                           "content": {
+                               "application/json": {
+                                   "schema": {
+                                       "type": "object",
+                                       "properties": {
+                                        "status": {
+                                             "type": "string"
+                                        },
+                                        "data":{ 
+                                             "type": "object",
+                                             "properties":{
+                                                  "selectedDriver":{
+                                                       "type":"object",
+                                                       "properties":{
+                                                            "Id": {"type":"number"},
+                                                            "DriverAccountId": {"type":"number"},
+                                                            "StateId": {"type":"number"},
+                                                            "Rating": {"type":"string"},
+                                                            "FirstName": {"type":"string"},
+                                                            "LastName": {"type":"string"},
+                                                            "Email": {"type":"string"},
+                                                            "PhoneNumber": {"type":"string"},
+                                                            "Address": {"type":"string"},
+                                                            "City": {"type":"string"},
+                                                            "State": {"type":"string"},
+                                                            "LisencePlate": {"type":"string"},
+                                                            "Name": {"type":"string"}
+                                                       }
+                                                  }
+                                                  
+                                             }    
+                                        },
+                                        "mesage": {
+                                             "type":"string"
+                                        }
+                                       }
+                                   }
+                               }
+                           }
+                       }
+                   }
+               }
+           },
+           "/api/v1/driver": {
+               "post": {
+                   "summary": "Creates a Driver account",
+                   "tags": [
+                      "driver"
+                   ],
+                   "description":"This endpoint creates a Driver account for a user",
+                   "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "firstName": {
+                                        "type": "string"
+                                    },
+                                    "lastName": {
+                                        "type": "string"
+                                    },
+                                    "role": {
+                                        "type": "string",
+                                        "example":"Driver"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                   "responses": {
+                       "201": {
+                           "description": "An object containing status data and message",
+                           "content": {
+                               "application/json": {
+                                   "schema": {
+                                       "type": "object",
+                                       "properties": {
+                                        "status": {
+                                             "type": "string"
+                                        },
+                                        "data":{
+                                             "type": "string",
+                                             "example": null
+                                        },
+                                        "mesage": {
+                                             "type":"string"
+                                        }
+                                       }
+                                   }
+                               }
+                           }
+                       }
+                   }
+               }
+           },
+           "/api/v1/driver/login": {
+               "post": {
+                   "summary": "Logs in a driver",
+                   "tags": [
+                      "driver"
+                   ],
+                   "description":"This endpoint Logs in a driver into his/her account",
+                   "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                   "responses": {
+                       "200": {
+                           "description": "An object containing status data and message",
+                           "content": {
+                               "application/json": {
+                                   "schema": {
+                                       "type": "object",
+                                       "properties": {
+                                        "status": {
+                                             "type": "string"
+                                        },
+                                        "data":{
+                                             "type": "object",
+                                             "properties": {
+                                                  "token":{
+                                                       "type":"string"
+                                                  }
+                                             }
+                                        },
+                                        "mesage": {
+                                             "type":"string"
+                                        }
+                                       }
+                                   }
+                               }
+                           }
+                       }
+                   }
+               }
+           },
+           "/api/v1/driver/{id}": {
+               "put": {
+                   "summary": "Updates a Driver account",
+                   "tags": [
+                      "driver"
+                   ],
+                   "description":"This endpoint updates a Driver record ",
+                   "parameters": [
+                         {
+                              "in": "path",
+                              "name": "id",
+                              "schema": {
+                                   "type":"integer"
+                              },
+                              "required": true,
+                              "description": "this is the id of the Driver to be updated"
+                         }
+                    ],
+                   "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "dateOfBirth": {
+                                        "type": "string"
+                                    },
+                                    "phoneNumber": {
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "city": {
+                                        "type": "string"
+                                    },
+                                    "state": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                   "responses": {
+                       "201": {
+                           "description": "An object containing status data and message",
+                           "content": {
+                               "application/json": {
+                                   "schema": {
+                                       "type": "object",
+                                       "properties": {
+                                        "status": {
+                                             "type": "string"
+                                        },
+                                        "data":{
+                                             "type": "string",
+                                             "example": null
+                                        },
+                                        "mesage": {
+                                             "type":"string"
+                                        }
+                                       }
+                                   }
+                               }
+                           }
+                       }
+                   }
+               }
+           },
+           "/api/v1/paymentMethod": {
+               "get": {
+                   "summary": "gets all paymentmethod",
+                   "tags": [
+                      "payment"
+                   ],
+                   "description":"This endpoint gets all paymentmethod",
+                   "requestBody": {
+                    "required": false
+                },
+                   "responses": {
+                       "200": {
+                           "description": "An object containing status, data and message",
+                           "content": {
+                               "application/json": {
+                                   "schema": {
+                                       "type": "object",
+                                       "properties": {
+                                             "status": {
+                                                  "type": "string"
+                                             },
+                                             "data":{
+                                                  "type": "array",
+                                                  "items": {
+                                                       "type":"object",
+                                                       "properties":{
+                                                            "Id": {"type":"number"},
+                                                            "Name": {"type":"string"},
+                                                            "Description":{"type":"string"},
+                                                            "ImageUrl": {"type":"string"} 
+                                                       }
+                                                  }
+                                                 
+                                             },
+                                             "mesage": {
                                                   "type":"string"
                                              }
-                                        }
-                                   },
-                                   "mesage": {
-                                        "type":"string"
+                                       }
                                    }
-                                  }
-                              }
-                          }
-                      }
-                  }
-              }
-          }
-      },
-      "/api/v1/driver/:id": {
-          "put": {
-              "summary": "Updates a Driver account",
-              "tags": [
-                 "driver"
-              ],
-              "description":"This endpoint updates a Driver record ",
-              "parameters": [
+                               }
+                           }
+                       }
+                   }
+               }
+           },
+           "/api/v1/business/information/upload": {
+               "post": {
+                   "summary": "Uploads Business Information",
+                   "tags": [
+                      "business"
+                   ],
+                   "description":"This endpoint uploads the basic information of a business",
+                   "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "userAccountId": {
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "city": {
+                                        "type": "string"
+                                    },
+                                    "state": {
+                                        "type": "string"
+                                    },
+                                    "inceptionDate": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                   "responses": {
+                       "201": {
+                           "description": "An object containing status, data and message",
+                           "content": {
+                               "application/json": {
+                                   "schema": {
+                                       "type": "object",
+                                       "properties": {
+                                        "status": {
+                                             "type": "string"
+                                        },
+                                        "data":{
+                                             "type": "string",
+                                             "example": null
+                                        },
+                                        "mesage": {
+                                             "type":"string"
+                                        }
+                                       }
+                                   }
+                               }
+                           }
+                       }
+                   }
+               }
+           },
+           "/api/v1/business/documents/upload": {
+               "post": {
+                   "summary": "Uploads buisness documents",
+                   "tags": [
+                      "business"
+                   ],
+                   "description":"This endpoint uploads the buisness documents ",
+                   "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "businessId": {
+                                        "type": "integer"
+                                    },
+                                    "docs": {
+                                        "type": "array",
+                                        "items":{
+                                             "type":"object",
+                                             "properties":{
+                                                  "value": {
+                                                       "type": "string"
+                                                   },
+                                                   "documentType": {
+                                                       "type": "string"
+                                                   }
+                                             }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                   "responses": {
+                       "200": {
+                           "description": "An object containing status of the uploaded documents",
+                           "content": {
+                               "application/json": {
+                                   "schema": {
+                                       "type": "object",
+                                       "properties": {
+                                        "status": {
+                                             "type": "string"
+                                        },
+                                        "data":{
+                                             "type": "string",
+                                             "example": null
+                                             
+                                        },
+                                        "mesage": {
+                                             "type":"string"
+                                        }
+                                       }
+                                   }
+                               }
+                           }
+                       }
+                   }
+               }
+           },
+           "/api/v1/business/documents/verify/{id}": {
+               "put": {
+                   "summary": "Verifies buisness documents",
+                   "parameters": [
                     {
                          "in": "path",
                          "name": "id",
@@ -648,220 +950,389 @@
                               "type":"integer"
                          },
                          "required": true,
-                         "description": "this is the id of the Driver to be updated"
+                         "description": "this is the id of the business document"
                     }
-               ],
-              "requestBody": {
-               "required": true,
-               "content": {
-                   "application/json": {
-                       "schema": {
-                           "type": "object",
-                           "properties": {
-                               "dateOfBirth": {
-                                   "type": "string"
-                               },
-                               "phoneNumber": {
-                                   "type": "string"
-                               },
-                               "address": {
-                                   "type": "string"
-                               },
-                               "city": {
-                                   "type": "string"
-                               },
-                               "state": {
-                                   "type": "string"
-                               }
-                           }
-                       }
-                   }
-               }
-           },
-              "responses": {
-                  "201": {
-                      "description": "An object containing status data and message",
-                      "content": {
-                          "application/json": {
-                              "schema": {
-                                  "type": "object",
-                                  "properties": {
-                                   "status": {
-                                        "type": "string"
-                                   },
-                                   "data":{
-                                        "type": "string",
-                                        "example": null
-                                   },
-                                   "mesage": {
-                                        "type":"string"
-                                   }
-                                  }
-                              }
-                          }
-                      }
-                  }
-              }
-          }
-      },
-      "/api/v1/paymentMethod": {
-          "get": {
-              "summary": "gets all paymentmethod",
-              "tags": [
-                 "payment"
-              ],
-              "description":"This endpoint gets all paymentmethod",
-              "requestBody": {
-               "required": false
-           },
-              "responses": {
-                  "200": {
-                      "description": "An object containing status, data and message",
-                      "content": {
-                          "application/json": {
-                              "schema": {
-                                  "type": "object",
-                                  "properties": {
+                    ],
+                   "tags": [
+                      "business"
+                   ],
+                   "description":"This endpoint Verifies as valid the buisness documents ",
+                   
+                   "responses": {
+                       "200": {
+                           "description": "An object containing status of the uploaded documents",
+                           "content": {
+                               "application/json": {
+                                   "schema": {
+                                       "type": "object",
+                                       "properties": {
                                         "status": {
                                              "type": "string"
                                         },
                                         "data":{
-                                             "type": "array",
-                                             "items": {
-                                                  "type":"object",
-                                                  "properties":{
-                                                       "Id": {"type":"number"},
-                                                       "Name": {"type":"string"},
-                                                       "Description":{"type":"string"},
-                                                       "ImageUrl": {"type":"string"} 
-                                                  }
-                                             }
-                                            
+                                             "type": "string",
+                                             "example": null
+                                             
                                         },
                                         "mesage": {
                                              "type":"string"
                                         }
-                                  }
-                              }
-                          }
-                      }
-                  }
-              }
-          }
-      },
-      "/api/v1/business": {
-          "post": {
-              "summary": "Creates a business account",
-              "tags": [
-                 "business"
-              ],
-              "description":"This endpoint creates a Business account for a user",
-              "requestBody": {
-               "required": true,
-               "content": {
-                   "application/json": {
-                       "schema": {
-                           "type": "object",
-                           "properties": {
-                               "businessName": {
-                                   "type": "string"
-                               },
-                               "role": {
-                                   "type": "string",
-                                   "example":"Business"
-                               },
-                               "email": {
-                                   "type": "string"
-                               },
-                               "password": {
-                                   "type": "string"
-                               }
-                           }
-                       }
-                   }
-               }
-           },
-              "responses": {
-                  "201": {
-                      "description": "An object containing status data and message",
-                      "content": {
-                          "application/json": {
-                              "schema": {
-                                  "type": "object",
-                                  "properties": {
-                                   "status": {
-                                        "type": "string"
-                                   },
-                                   "data":{
-                                        "type": "string",
-                                        "example": null
-                                   },
-                                   "mesage": {
-                                        "type":"string"
+                                       }
                                    }
-                                  }
-                              }
-                          }
-                      }
-                  }
-              }
-          }
-      },
-      "/api/v1/business/login": {
-          "post": {
-              "summary": "Logs in a business",
-              "tags": [
-                 "business"
-              ],
-              "description":"This endpoint Logs in a business into the business account",
-              "requestBody": {
-               "required": true,
-               "content": {
-                   "application/json": {
-                       "schema": {
-                           "type": "object",
-                           "properties": {
-                               "email": {
-                                   "type": "string"
-                               },
-                               "password": {
-                                   "type": "string"
                                }
                            }
                        }
                    }
                }
            },
-              "responses": {
-                  "200": {
-                      "description": "An object containing status data and message",
-                      "content": {
-                          "application/json": {
-                              "schema": {
-                                  "type": "object",
-                                  "properties": {
-                                   "status": {
-                                        "type": "string"
-                                   },
-                                   "data":{
+           "/api/v1/business/documents/decline/{id}": {
+               "put": {
+                   "summary": "Declines buisness documents",
+                   "parameters": [
+                    {
+                         "in": "path",
+                         "name": "id",
+                         "schema": {
+                              "type":"integer"
+                         },
+                         "required": true,
+                         "description": "this is the id of the business document"
+                    }
+                    ],
+                   "tags": [
+                      "business"
+                   ],
+                   "description":"This endpoint declines the buisness documents ",
+                   
+                   "responses": {
+                       "200": {
+                           "description": "An object containing status of the uploaded documents",
+                           "content": {
+                               "application/json": {
+                                   "schema": {
+                                       "type": "object",
+                                       "properties": {
+                                        "status": {
+                                             "type": "string"
+                                        },
+                                        "data":{
+                                             "type": "string",
+                                             "example": null
+                                             
+                                        },
+                                        "mesage": {
+                                             "type":"string"
+                                        }
+                                       }
+                                   }
+                               }
+                           }
+                       }
+                   }
+               }
+           },
+           "/api/v1/business/information/{id}": {
+               "get": {
+                   "summary": "Gets business information",
+                   "parameters": [
+                    {
+                         "in": "path",
+                         "name": "id",
+                         "schema": {
+                              "type":"integer"
+                         },
+                         "required": true,
+                         "description": "this is the id of the business"
+                    }
+                    ],
+                   "tags": [
+                      "business"
+                   ],
+                   "description":"This endpoint gets the buisness information ",
+                   "responses": {
+                       "200": {
+                           "description": "An object containing status of the uploaded documents",
+                           "content": {
+                               "application/json": {
+                                   "schema": {
+                                       "type": "object",
+                                       "properties": {
+                                        "status": {
+                                             "type": "string"
+                                        },
+                                        "data":{
+                                             "type": "object",
+                                             "properties":{
+                                                  "userAccountId":{
+                                                       "type":"string"
+                                                  },
+                                                  "Name":{
+                                                       "type":"string"
+                                                  },
+                                                  "Address":{
+                                                       "type": "string" 
+                                                  },
+                                                  "City":{
+                                                       "type":"string"
+                                                  },
+                                                  "State":{
+                                                       "type":"string"
+                                                  },
+                                                  "InceptionDate":{
+                                                       "type":"string"
+                                                  }
+                                             }                                             
+                                        },
+                                        "mesage": {
+                                             "type":"string"
+                                        }
+                                       }
+                                   }
+                               }
+                           }
+                       }
+                   }
+               }
+           },
+           "/api/v1/vehicles": {
+               "post": {
+                    "summary": "Enlist a vehicles",
+                    "tags": [
+                         "vehicle"
+                    ],
+                    "description":"This endpoint enlists vheicles on the platform",
+                    "requestBody": {
+                         "required": true,
+                         "content": {
+                              "application/json": {
+                                   "schema": {
                                         "type": "object",
                                         "properties": {
-                                             "token":{
-                                                  "type":"string"
+                                             "VehicleTypeId": {
+                                                  "type": "integer"
+                                             },
+                                             "Manufacturer": {
+                                                  "type": "string"
+                                             },
+                                             "Color": {
+                                                  "type": "string"
+                                             },
+                                             "Model": {
+                                                  "type": "string"
+                                             },
+                                             "ManufactureYear": {
+                                                  "type": "string"
+                                             },
+                                             "LisencePlate": {
+                                                  "type": "string"
+                                             },
+                                             "UserAccountId": {
+                                                  "type": "integer"
                                              }
                                         }
+                                   }
+                              }
+                         }
+                    }
+               },
+               "responses": {
+                    "201": {
+                         "description": "An object containing status data and message",
+                         "content": {
+                              "application/json": {
+                                   "schema": {
+                                   "type": "object",
+                                   "properties": {
+                                        "status": {
+                                             "type": "string"
+                                        },
+                                        "data":{
+                                             "type": "string",
+                                             "example": null
+                                        },
+                                        "mesage": {
+                                             "type":"string"
+                                        }
+                                   }
+                                   }
+                              }
+                         }
+                    }
+               }
+          },
+          "/api/v1/vehicles/{id}": {
+              "put": {
+              "summary": "Enlist a vehicles",
+              "tags": [
+                   "vehicle"
+              ],
+              "description":"This endpoint enlists vheicles on the platform",
+              "requestBody": {
+                   "required": true,
+                   "content": {
+                   "application/json": {
+                        "schema": {
+                             "type": "object",
+                             "properties": {
+                                  "Id": {
+                                       "type": "integer"
                                    },
-                                   "mesage": {
-                                        "type":"string"
+                                  "VehicleTypeId": {
+                                       "type": "integer"
+                                   },
+                                   "Manufacturer": {
+                                       "type": "string"
+                                   },
+                                   "Color": {
+                                       "type": "string"
+                                   },
+                                   "Model": {
+                                       "type": "string"
+                                   },
+                                   "ManufactureYear": {
+                                       "type": "string"
+                                   },
+                                   "LisencePlate": {
+                                       "type": "string"
+                                   },
+                                   "UserAccountId": {
+                                       "type": "integer"
+                                   },
+                                   "Status": {
+                                       "type": "string"
                                    }
                                   }
-                              }
-                          }
-                      }
-                  }
+                             }
+                        }
+                   }
+                   }
+              },
+              "responses": {
+                   "201": {
+                        "description": "An object containing status data and message",
+                        "content": {
+                             "application/json": {
+                                  "schema": {
+                                  "type": "object",
+                                  "properties": {
+                                       "status": {
+                                            "type": "string"
+                                       },
+                                       "data":{
+                                            "type": "string",
+                                            "example": null
+                                       },
+                                       "mesage": {
+                                            "type":"string"
+                                       }
+                                  }
+                                  }
+                             }
+                        }
+                   }
               }
-          }
+         },
+          "/api/v1/approve/{id}": {
+              "put": {
+              "summary": "Approve a vehicles",
+              "tags": [
+                   "vehicle"
+              ],
+              "description":"This endpoint approves a vheicle on the platform",
+              "requestBody": {
+                   "required": true,
+                   "content": {
+                   "application/json": {
+                        "schema": {
+                             "type": "object",
+                             "properties": {
+                                  "Id": {
+                                       "type": "integer"
+                                   }
+                                  }
+                             }
+                        }
+                   }
+                   }
+              },
+              "responses": {
+                   "201": {
+                        "description": "An object containing status data and message",
+                        "content": {
+                             "application/json": {
+                                  "schema": {
+                                  "type": "object",
+                                  "properties": {
+                                       "status": {
+                                            "type": "string"
+                                       },
+                                       "data":{
+                                            "type": "string",
+                                            "example": null
+                                       },
+                                       "mesage": {
+                                            "type":"string"
+                                       }
+                                  }
+                                  }
+                             }
+                        }
+                   }
+              }
+         },
+         "/api/v1/reject/{id}": {
+             "put": {
+             "summary": "Reject a vehicles",
+             "tags": [
+                  "vehicle"
+             ],
+             "description":"This endpoint rejects a vheicle on the platform",
+             "requestBody": {
+                  "required": true,
+                  "content": {
+                  "application/json": {
+                       "schema": {
+                            "type": "object",
+                            "properties": {
+                                 "Id": {
+                                      "type": "integer"
+                                  }
+                                 }
+                            }
+                       }
+                  }
+                  }
+             },
+             "responses": {
+                  "201": {
+                       "description": "An object containing status data and message",
+                       "content": {
+                            "application/json": {
+                                 "schema": {
+                                 "type": "object",
+                                 "properties": {
+                                      "status": {
+                                           "type": "string"
+                                      },
+                                      "data":{
+                                           "type": "string",
+                                           "example": null
+                                      },
+                                      "mesage": {
+                                           "type":"string"
+                                      }
+                                 }
+                                 }
+                            }
+                       }
+                  }
+             }
+        }
+
+         
+
+          
       }
-      
-    }
- }
+         
+}
+

@@ -13,7 +13,7 @@ import PayStack from 'paystack-node';
 import emailRouter from './src/routes/emailRoutes.js';
 import driverRouter from "./src/routes/driversRouters.js";
 import businessRouter from "./src/routes/businessRouters.js";
-import customerRouter from "./src/routes/customerRouters.js";
+import userRouter from "./src/routes/userRouters.js";
 import vehicleRouter from "./src/routes/vehiclesRouters.js";
 import paymentRouter from './src/routes/paymentRouter.js';
 import packageRouter from './src/routes/packageRouters.js';
@@ -42,7 +42,7 @@ app.get('/google', (req, res) => res.redirect('api/v1/pay/successful'))
 app.use('/api/v1', emailRouter)
 app.use('/api/v1', driverRouter); 
 app.use('/api/v1', businessRouter);
-app.use("/api/v1", customerRouter);
+app.use("/api/v1", userRouter);
 app.use("/api/v1", vehicleRouter);
 app.use("/api/v1", paymentRouter);
 app.use("/api/v1", packageRouter);

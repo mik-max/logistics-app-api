@@ -1,30 +1,38 @@
 BEGIN
 
+
 INSERT INTO [dbo].[Vehicles]
-            ([VehicleTypeId]
+           ([VehicleTypeId]
            ,[Manufacturer]
            ,[Color]
+           ,[Model]
+           ,[ManufactureYear]
            ,[LisencePlate]
-           ,[AddedByUserId]
+           ,[UserAccountId]
            ,[Status]
-           ,[DateCreated])
+           ,[DateCreated]
+)
            
-    VALUES(
+VALUES(
         @vehicleTypeId,
         @manufacturer,
         @color,
+        @model,
+        @manufactureYear
         @lisencePlate,
-        @addedByUserId,
+        @userAccountId,
         @status,
         @dateCreated
-    ) 
+) 
 
 SELECT [Id]
       ,[VehicleTypeId]
       ,[Manufacturer]
       ,[Color]
+      ,[Model]
+      ,[ManufactureYear]
       ,[LisencePlate]
-      ,[AddedByUserId]
+      ,[UserAccountId]
       ,[Status]
       ,[DateCreated]
       ,[dateModified]

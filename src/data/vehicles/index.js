@@ -22,8 +22,10 @@ const createVehicleData = async (Id,vehicleData) => {
           .input("VehicleTypeId", sql.TinyInt, vehicleTypeId.recordset[0].Id)
           .input("Manufacturer", sql.VarChar(30), vehicleData.manufacturer)
           .input("Color", sql.VarChar(10), vehicleData.color)
+          .input("Model", sql.VarChar(20), vehicleData.model)
+          .input("ManufactureYear", sql.VarChar(4), vehicleData.manufactureYear)
           .input("LisencePlate", sql.VarChar(10), vehicleData.lisencePlate)
-          .input('AddedByUserId', sql.Int, Id)
+          .input('UserAccountId', sql.Int, vehicleData.userAccountId)
           .input("Status", sql.VarChar(10), initialStatus)
           .input("DateCreated", sql.DateTime2, isoDateTime)
           .query(sqlQueries.createVehicle);
@@ -44,10 +46,13 @@ const updateVehicleData = async (Id, vehicleData) => {
      let pool = await sql.connect(configData.sql);
         const list = await pool.request()
           .input("Id", sql.Int, Id)
-          .input("VehicleTypeId", sql.TinyInt, vehicleData.vehicleTypeId)
+          .input("VehicleTypeId", sql.TinyInt, vehicleTypeId.recordset[0].Id)
           .input("Manufacturer", sql.VarChar(30), vehicleData.manufacturer)
           .input("Color", sql.VarChar(10), vehicleData.color)
+          .input("Model", sql.VarChar(20), vehicleData.model)
+          .input("ManufactureYear", sql.VarChar(4), vehicleData.manufactureYear)
           .input("LisencePlate", sql.VarChar(10), vehicleData.lisencePlate)
+          .input('UserAccountId', sql.Int, vehicleData.userAccountId)
           .input("Status", sql.VarChar(10), vehicleData.status)
          
           .input("DateModified", sql.DateTime2, isoDateTime)
