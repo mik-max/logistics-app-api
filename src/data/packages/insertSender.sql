@@ -1,10 +1,7 @@
 BEGIN
 
-USE [LogisticsApp]
-GO
-
 INSERT INTO [dbo].[Senders]
-           ([UserId]
+           ([UserAccountId]
            ,[Name]
            ,[PhoneNumber]
            ,[State]
@@ -12,13 +9,12 @@ INSERT INTO [dbo].[Senders]
            ,[Address]
            ,[DateCreated])
      VALUES
-           (@userId
+           (@userAccountId
            ,@name
            ,@phoneNumber
            ,@state
            ,@lga
            ,@address
            ,@dateCreated)
-GO
 
 END
