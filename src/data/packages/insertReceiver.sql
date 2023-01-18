@@ -1,7 +1,7 @@
 BEGIN
 
 USE [LogisticsApp]
-GO
+
 
 INSERT INTO [dbo].[Receivers]
            ([Name]
@@ -17,6 +17,5 @@ INSERT INTO [dbo].[Receivers]
            ,@lga
            ,@address
            ,@dateCreated)
-GO
 
 END
