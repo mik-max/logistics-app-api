@@ -1,32 +1,31 @@
 BEGIN
 UPDATE [dbo].[DriverAccounts]
-   SET [RoleId] = @roleId
-      ,[VehicleId] = @vehicleId
-      ,[Email] = @email
-      ,[Password] = @password
-      ,[BankName] = @bankName
-      ,[BankAccountName] = @bankAccountName
-      ,[BankAccountNumber] = @bankAccountNumber
-      ,[DateCreated] = @dateCreated
-      ,[DateModified] = @dateModified
-      ,[IsDeleted] = @dateModified
-      ,[DateDeleted] = @dateDeleted
- WHERE [Id] = @Id AND [IsDeleted] = 0
+   SET [userId] = @id
+     ,[DriverLisence] = @driverLisence
+     ,[VehicleId] = @vehicleId
+     ,[IsPlyingInterState] = @isPlyingInterState
+     ,[Rating] = @rating
+     ,[DateModified] = @dateModified
+
+WHERE [Id] = @id AND [IsDeleted] = 0
+
+-- UPDATE [dbo].[DriverStates]
+--    SET [DriverAccountId] = <DriverAccountId, int,>
+--       ,[StateId] = <StateId, int,>
+--  WHERE <Search Conditions,,>
+-- GO
 
 SELECT TOP (1000) [Id]
       ,[UserId]
-      ,[RoleId]
+      ,[DriverLisence]
       ,[VehicleId]
-      ,[Email]
-      ,[Password]
-      ,[BankName]
-      ,[BankAccountName] 
-      ,[BankAccountNumber]
+      ,[IsPlyingInterState]
+      ,[Rating]
       ,[DateCreated]
       ,[DateModified]
       ,[IsDeleted]
       ,[DateDeleted]
-FROM [LogisticsApp].[dbo].[DriverAccounts]
-WHERE [Id] = @Id AND [IsDeleted] = 0
+  FROM [LogisticsApp].[dbo].[DriverAccounts]
+WHERE [Id] = @id AND [IsDeleted] = 0
 
 END

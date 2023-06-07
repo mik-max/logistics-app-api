@@ -1,56 +1,36 @@
 BEGIN
-
-INSERT INTO [dbo].[DriverAccounts](
-      [UserId]
-      ,[VehicleId]
-      ,[Email]
-      ,[Password]
-      ,[BankName]
-      ,[BankAccountName]
-      ,[BankAccountNumber]
-      ,[DateCreated]
-      ,[DateModified]
-      ,[IsDeleted]
-      ,[DateDeleted]
-)
- 
-VALUES(
-      @userId,
-      @roleId,
-      @vehicleId,
-      @email,
-      @password,
-      @bankName,
-      @bankAccountName,
-      @bankAccountNumber,
-      @dateCreated,
-      @dateModified,
-      @isDeleted,
-      @dateDeleted
-)
+DECLARE @userId INT
 
 INSERT INTO [dbo].[Users]
            ([FirstName]
-            ,[LastName]
-            ,[RoleId]
-            ,[Email]
-            ,[DateOfBirth]
-            ,[PhoneNumber]
-            ,[Address]
-            ,[City]
-            ,[State]
-            ,[DateCreated])
+          ,[LastName]
+          ,[RoleId]
+          ,[Email]
+          ,[DateOfBirth]
+          ,[DateCreated])
 
      VALUES(
-            @firstName,
+            @firstName, 
            @lastName,
            @roleId,
            @email,
            @dateOfBirth,
-           @phoneNumber,
-           @address,
-           @city,
-           @state,
            @dateCreated
-        )
+)
+SET @userId = @@IDENTITY
+INSERT INTO [dbo].[UserAccounts](
+     [UserId]
+     ,[Email]
+     ,[Password]
+     ,[WishToDrive]
+     ,[DateCreated]
+)
+VALUES(
+      @userId,
+      @email,
+      @password,
+      @wishToDrive,
+      @dateCreated
+)
+
 END

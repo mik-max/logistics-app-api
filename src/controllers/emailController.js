@@ -1,17 +1,15 @@
-import { sendOtp } from "../Services/EmailService.js";
+import { sendOtp, sendDriverPairing, sendRepuestProcessing, sendRepuestProcessed } from "../Services/EmailService.js";
 import { createNewOtpData, getOtpData, verifyOtpData, expireOtpData, getAllOtpData  } from "../data/email/index.js";
 import { encrypt } from "../utilities/hashing.js";
 import { checkExpiryDate } from "../utilities/checkExpirydate.js";
 import { validateEmail } from "../utilities/emailValidation.js";
-export const SendOtps = async (req, res, next) => {
+
+export const reSendOtps = async (req, res, next) => {
      try {
           let validatedEmail = validateEmail(req.body.email)
           if(validatedEmail){
-               let otp = sendOtp(req.body.email);
-               let hashedOtp = encrypt(otp)
-               console.log(hashedOtp)
-               await createNewOtpData(hashedOtp, req.body.email)
-               res.status(200).send({status: "Ok", data: null, message: `OTP has been successfully sent to ${req.body.email}` })
+               let otpResponse = await sendOtp(req.body.email);
+               res.status(200).send({status: "Ok", data: {reference: otpResponse}, message: `OTP has been successfully sent to ${req.body.email}` })
           }else{
                res.status(400).send({status: "Failed", data: null, message: `${req.body.email} is an invalid email ooooo abeg` })
           }
@@ -37,9 +35,6 @@ export const verifyOtps = async (req, res, next) => {
           }else{
                res.status(200).send({status: "Expired", data: null, message: "Otp has expired"})
           }
-
-          
-          
      } catch (error) {
           res.status(500).send({status: "Failed", data: null, message: error.message})
      }
@@ -47,20 +42,67 @@ export const verifyOtps = async (req, res, next) => {
 export const expireOtps = async (req, res, next) => {
      try {
           let data = await getAllOtpData();
+          if (data != []){
+               data.map(async(otp) => {
+                    let result = checkExpiryDate(otp.ExpiresAt);
+                    if(result){
+                         await expireOtpData(otp.Otp)
+                    }else{
+                         // do nothing
+                    }
+               })
+               res.send({status: "Completed", data: null, message: "Check completed"});
+          }else{
+               res.send({status: "Empty", data: null, message: "No record found"})
+          }
           
-          data.map(async(otp) => {
-               let expirydate = new Date (otp.ExpiresAt);
-               let epoch= expirydate.getTime()/1000.0;
-               let result = checkExpiryDate(epoch);
-               console.log(otp.Otp)
-               if(result){
-                    await expireOtpData(otp.Otp)
-                    res.status(200).send({status: "Expired", data: null, message: "Otp has expired"})
-               }else{
-                    res.status(200).send({status: "Ok", data: null, message: "Otp is active"})
-               }
-          })
      } catch (error) {
           res.status(500).send({status: "Failed", data: null, message: error.message})
      }
 }
+
+export const mailDriver = async (req, res, next) => {
+     try {
+          let validatedEmail = validateEmail(req.body.email)
+          if(validatedEmail){
+                await sendDriverPairing(req.body.email, req.body.name);
+               res.status(200).send({status: "Ok", data: null, message: `Mail successfully sent to ${req.body.email}` })
+          }else{
+               res.status(400).send({status: "Failed", data: null, message: `${req.body.email} is an invalid email` })
+          }
+          
+     } catch (error) {
+          res.status(500).send({status: "Failed", data: null, message: error.message})
+     }
+}
+export const repuestProcessing = async (req, res, next) => {
+     try {
+          let validatedEmail = validateEmail(req.body.email)
+          if(validatedEmail){
+                await sendRepuestProcessing(req.body.email);
+               res.status(200).send({status: "Ok", data: null, message: `Mail successfully sent to ${req.body.email}` })
+          }else{
+               res.status(400).send({status: "Failed", data: null, message: `${req.body.email} is an invalid email` })
+          }
+          
+     } catch (error) {
+          res.status(500).send({status: "Failed", data: null, message: error.message})
+     }
+}
+export const repuestProcessed = async (req, res, next) => {
+     try {
+          let validatedEmail = validateEmail(req.body.email)
+          if(validatedEmail){
+                await sendRepuestProcessed(req.body.email);
+               res.status(200).send({status: "Ok", data: null, message: `Mail successfully sent to ${req.body.email}` })
+          }else{
+               res.status(400).send({status: "Failed", data: null, message: `${req.body.email} is an invalid email` })
+          }
+          
+     } catch (error) {
+          res.status(500).send({status: "Failed", data: null, message: error.message})
+     }
+}
+
+
+

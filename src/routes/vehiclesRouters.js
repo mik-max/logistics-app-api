@@ -10,7 +10,7 @@ let vehicleRouter = Router()
 
 vehicleRouter.post('/vehicles',createVehicle);
 vehicleRouter.put('/vehicles/:id',updateVehicle);
-vehicleRouter.put("/vehicles/approve/:id", approveVehicle);
-vehicleRouter.put("/vehicles/reject/:id", rejectVehicle);
+vehicleRouter.put("/approve/:id", approveVehicle);
+vehicleRouter.put("/reject/:id", rejectVehicle);
 
 export default vehicleRouter;

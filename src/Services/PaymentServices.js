@@ -1,41 +1,30 @@
-import { json } from 'express';
-import fetch from 'node-fetch';
-import PayStack from 'paystack-node';
+import { response } from 'express';
+import Flutterwave from 'flutterwave-node-v3';
 import configData from '../../config.js';
+const flw = new Flutterwave(configData.flwPublicKey, configData.flwSecretKey)
 
-let APIKEY = configData.paystackApiKey
-let environment = configData.nodeEnv
-
-// const paystack = new PayStack(APIKEY, environment)
-// const feesCalculator = new PayStack.Fees();
-const MySecretKey = APIKEY;
-export const initializePayment = async (form) => {
-    let res = await fetch('https://api.paystack.co/transaction/initialize',{
-          method: 'post',
-          headers : {
-               authorization: MySecretKey,
-               'content-type': 'application/json',
-               'cache-control': 'no-cache'    
-           },
-          body: JSON.stringify(form)
-     })
-
-     let data = await res.json();
-     return data
+export const flutterWaveCardCharge = async (payload) => {
+     const response  = await flw.Charge.card(payload)
+     return response 
+}
+export const flutterWaveVerifyTransaction = async (transactionId) => {
+     const transaction = await flw.Transaction.verify({id: transactionId});
+     return transaction.data.status;
+}
+export const flutterWaveValidateCharge = async (otp, ref) => {
+     const response = await flw.Charge.validate({
+          otp: otp,
+          flw_ref: ref
+     });
+     return response;
 }
 
-export const verifyPayment = (ref, mycallback) => {
-    const options = {
-        url : 'https://api.paystack.co/transaction/verify/'+encodeURIComponent(ref),
-        headers : {
-            authorization: MySecretKey,
-            'content-type': 'application/json',
-            'cache-control': 'no-cache'    
-        }
-    }
-    const callback = (error, response, body) => {
-        return mycallback(error, body)
-    }
-    request(options, callback)
+export const flutterWaveBankCharge= async (payload) => {
+     const response = await flw.Charge.ng(payload);
+     return response;
+}
+export const flutterWaveUssdCharge= async (payload) => {
+     const response = await flw.Charge.ussd(payload);
+     return response;
 }
 

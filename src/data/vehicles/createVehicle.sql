@@ -1,30 +1,44 @@
 BEGIN
 
-INSERT INTO [dbo].[vehicles]
-            ([VehicleTypeId]
+
+INSERT INTO [dbo].[Vehicles]
+           ([VehicleTypeId]
            ,[Manufacturer]
            ,[Color]
+           ,[Model]
+           ,[ManufactureYear]
            ,[LisencePlate]
+           ,[UserAccountId]
            ,[Status]
-           ,[DateCreated])
+           ,[DateCreated]
+)
            
-    VALUES(
+VALUES(
         @vehicleTypeId,
         @manufacturer,
         @color,
+        @model,
+        @manufactureYear
         @lisencePlate,
+        @userAccountId,
         @status,
         @dateCreated
-    ) 
+) 
 
-    SELECT TOP (1000) [Id]
-            ,[VehicleTypeId]
-           ,[Manufacturer]
-           ,[Color]
-           ,[LisencePlate]
-           ,[Status]
-           ,[DateCreated]
-FROM [LogisticsApp].[dbo].[DriverAccounts]
-WHERE [Status] = @Status AND [IsDeleted] = 0
+SELECT [Id]
+      ,[VehicleTypeId]
+      ,[Manufacturer]
+      ,[Color]
+      ,[Model]
+      ,[ManufactureYear]
+      ,[LisencePlate]
+      ,[UserAccountId]
+      ,[Status]
+      ,[DateCreated]
+      ,[dateModified]
+      ,[IsDeleted]
+      ,[DateDeleted]
+  FROM [dbo].[Vehicles]
+WHERE [Status] = @status AND [IsDeleted] = 0
 
 END
